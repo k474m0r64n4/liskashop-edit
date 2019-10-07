@@ -1,0 +1,93 @@
+<nav id="menu">
+    <ul>
+        <li>
+            <a href="index.html">Home</a>
+        </li>
+        <li>
+            <a href="shop.html">Shop</a>
+        </li>
+        <li>
+            <a href="about.html">About</a>
+        </li>
+
+        <li>
+            <a href="contact.html">Contact</a>
+        </li>
+
+    </ul>
+</nav>
+<header class="header-style-2">
+    <div class="header-2-inner">
+        <div class="widget widget-control-header widget-search-header">
+            <a class="btn-open-search-form js-open-search-form-header" href="#">
+                <span class="lnr lnr-magnifier"></span>
+            </a>
+            <div class="form-outer">
+                <button class="btn-close-form-search-header js-close-search-form-header">
+                    <span class="lnr lnr-cross"></span>
+                </button>
+                <form>
+                    <input placeholder="Search" />
+                    <button class="search">
+                        <span class="lnr lnr-magnifier"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu hidden-xs">
+                <li>
+                    <a href="/">Početna</a>
+                </li>
+                <li>
+                    <a href="/items">Proizvodi</a>
+                </li>
+            </ul>
+            <a class="brand-logo" href="/">
+                <img class="img-responsive" src="/images/slike/liskina.png" alt="" />
+            </a>
+            <ul class="menu hidden-xs">
+                <li>
+                    <a href="/about">O nama</a>
+
+                </li>
+                <li>
+                    <a href="/contact">Kontakt</a>
+                </li>
+
+            </ul>
+        </nav>
+        <aside class="right">
+            <% if(user) { %>
+            <div class="widget widget-control-header">
+                <a class="control" href="/profile">
+                    <p class="counter"><%= user.username %></p>
+                </a>
+                <a class="control" href="/logout">
+                    <p class="counter">Logout</p>
+                </a>
+            </div>
+            <% } else { %>
+            <div class="widget widget-control-header">
+                <a class="control" href="/login">
+                    <p class="counter">Login</p>
+                </a>
+            </div>
+            <% } %>
+
+            <div class="widget widget-control-header widget-shop-cart js-widget-shop-cart">
+                <a class="control" href="/cart">
+                    <p class="counter">2</p>
+                    <span class="lnr lnr-bag"></span>
+                </a>
+            </div>
+            <div class="widget widget-control-header hidden-lg hidden-md hidden-sm">
+                <a class="navbar-toggle js-offcanvas-has-events" type="button" href="#menu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+            </div>
+        </aside>
+    </div>
+</header>

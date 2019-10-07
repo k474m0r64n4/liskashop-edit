@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+<body class="animsition">
+<div class="login" id="page">
+    <% include partials/header.ejs %>
+    <section class="boxed-sm">
+        <div class="container">
+            <div class="login-wrapper">
+                <div class="row">
+                    <h3>Log In</h3>
+                    <form action="/auth/login"  method="post">
+                        <div class="form-group organic-form-2">
+                            <label>Username *</label>
+                            <input class="form-control" type="text" name="username">
+                        </div>
+                        <div class="form-group organic-form-2">
+                            <label>Password *</label>
+                            <input class="form-control" type="Password" name="password">
+                        </div>
+                        <div class="form-group remember-me">
+                            <div class="checkbox pull-left">
+                                <label>
+                                    <input type="checkbox"> Remember me
+                                </label>
+                            </div>
+                            <a class="pull-right" href="/signup">Signup</a>
+                        </div>
+                        <div class="form-group footer-form">
+                            <button  class="btn btn-brand pill" type="submit">LOGIN</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</div>
+<% include partials/footer.ejs %>
+
+<% include partials/footerscripts.ejs %>
+</body>
+</html>
+
+
+

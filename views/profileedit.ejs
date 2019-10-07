@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+</head>
+<body class="animsition">
+<div class="about" id="page">
+    <% include partials/header.ejs %>
+    <section class="sub-header shop-layout-1">
+        <img class="rellax bg-overlay" src="/images/slike/shoppozadina.jpg" alt="">
+        <div class="overlay-call-to-action"></div>
+        <h3 class="heading-style-3">Profile</h3>
+    </section>
+    <section class="boxed-sm">
+        <div class="container">
+            <div class="row blog-v reverse">
+                <div class="col-md-12">
+                    <div class="post">
+                        <div class="img-wrapper js-set-bg-blog-thumb">
+                            <img src="/images/slike/liska.jpg" alt="blog-thumb">
+                        </div>
+                        <% if(data){%>
+                        <% data.forEach(function (p) { %>
+                        <div class="desc">
+                            <form action="/profile/edit" method="post" name="form1">
+                                <div class="col-md-6">
+                                    <div class="form-group organic-form xs-radius">
+                                        <input class="form-control" name="firstname" id="firstname" value="<%= p.firstname %>" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group organic-form xs-radius">
+                                        <input class="form-control" name="lastname" id="lastname"  value="<%= p.lastname %>" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group organic-form xs-radius">
+                                        <input class="form-control"  name="email" id="email" value="<%= p.email %>" type="text" >
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group organic-form xs-radius">
+                                        <input class="form-control"  name="phone" id="phone" value="<%= p.phone %>" type="text" >
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group organic-form xs-radius">
+                                        <input class="form-control"  name="address" id="address" value="<%= p.address %>"  type="text" >
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group organic-form xs-radius">
+                                        <input class="form-control"  name="city" id="city" value="<%= p.city %>"  type="text" >
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group organic-form xs-radius">
+                                        <button class="btn btn-brand pill" type="submit" name="Submit">EDIT PROFILE</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <% }) } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<% include partials/footer.ejs %>
+<% include partials/footerscripts.ejs %>
+</body>
+</html>

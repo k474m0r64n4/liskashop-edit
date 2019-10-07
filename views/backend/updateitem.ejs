@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/../css/main.css" />
+</head>
+<body class="animsition">
+<div class="shop-layout-3" id="page">
+    <% include ../partials/header.ejs %>
+
+    <section >
+        <div class="container" style="width: 100%">
+            <div class="row">
+                <% include ../partials/adminheader.ejs %>
+                <div class="col-md-10">
+                    <div class="container text-left">
+                        <div class="row form-contact" style="margin-right: 150px">
+                            <div class="row main">
+                                <% if(data) { %>
+                                <% data.forEach(function (item) {   %>
+                                <form action="/admin/update" method="post" name="form1">
+                                    <div class="col-md-6 hidden" >
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Name: </label>
+                                            <input class="form-control" name="id" id="id" value="<%= item._id %>" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Name: </label>
+                                            <input class="form-control" name="name" id="name" value="<%= item.name %>" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Amount: </label>
+                                            <input class="form-control" name="amount" id="amount" value="<%= item.amount %>"  type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Price: </label>
+                                            <input class="form-control" name="price" id="price" value="<%= item.price %>"  type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Description: </label>
+                                            <textarea class="form-control"  name="description" id="description" rows="3"><%- item.description %></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Content text: </label>
+                                            <textarea class="form-control"  name="content_text" id="content_text" rows="3"><%- item.content_text %></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Image: </label>
+                                        <div class="form-group organic-form xs-radius">
+                                            <input class="form-control"  name="image" id="image" type="text"  value="<%= item.image %>" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Gallery: </label>
+                                        <div class="form-group organic-form xs-radius">
+                                            <input class="form-control"  name="gallery" id="gallery" type="text" value="<%= item.gallery %>"  >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Category: </label>
+                                            <select  class="form-control" name="category" id="category">
+                                                <option value="<%= item.category %>"><%= item.category %></option>
+                                                <option value="voće">Voće</option>
+                                                <option value="povrće">Povrće</option>
+                                                <option value="tegle">Tegle</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Tags: </label>
+                                            <input class="form-control"  name="tags" id="tags"  type="text" value="<%= item.tags %>" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Available: </label>
+                                            <select  class="form-control" name="status" id="status">
+                                                <option value="<%= item.status %>"><%= item.status %></option>
+                                                <option value="Na stanju">Na stanju</option>
+                                                <option value="Nema na stanju">Nema na stanju</option>
+                                                <option value="Uskoro dostupno">Uskoro dostupno</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Poreklo: </label>
+                                            <input class="form-control"  name="origin" id="origin"  type="text" value="<%= item.origin %>" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group organic-form xs-radius">
+                                            <button class="btn btn-brand pill" type="submit" name="Submit">UPDATE ITEM</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <% }) }%>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+<% include ../partials/footer.ejs %>
+<script src="/js/library/jquery.min.js"></script>
+<script src="/js/library/bootstrap.min.js"></script>
+<script src="/js/function-check-viewport.js"></script>
+<script src="/js/library/slick.min.js"></script>
+<script src="/js/library/select2.full.min.js"></script>
+<script src="/js/library/imagesloaded.pkgd.min.js"></script>
+<script src="/js/library/jquery.mmenu.all.min.js"></script>
+<script src="/js/library/rellax.min.js"></script>
+<script src="/js/library/isotope.pkgd.min.js"></script>
+<script src="/js/library/bootstrap-notify.min.js"></script>
+<script src="/js/library/bootstrap-slider.js"></script>
+<script src="/js/library/in-view.min.js"></script>
+<script src="/js/library/countUp.js"></script>
+<script src="/js/library/animsition.min.js"></script>
+<script src="/js/global.js"></script>
+<script src="/js/config-mm-menu.js"></script>
+<script src="/js/config-set-bg-blog-thumb.js"></script>
+<script src="/js/config-accrodion.js">
+
+
+</script>
+</body>
+</html>
+
+
+
