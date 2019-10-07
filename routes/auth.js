@@ -2,9 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../db/User');
 
-/* GET home page. */
-
-
+/* Passport auth. */
 module.exports = function (passport) {
     router.post('/signup', function (req, res) {
         var usr = {
@@ -18,9 +16,6 @@ module.exports = function (passport) {
             city: req.body.city
         };
 
-        var body = req.body,
-            username = body.username,
-            password = body.password;
 
         User.findOne({
             username: usr.username
@@ -59,6 +54,6 @@ module.exports = function (passport) {
         successRedirect: '/',
     }), function (req, res) {
         res.send('hey')
-    })
+    });
     return router;
 };

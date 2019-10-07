@@ -13,6 +13,7 @@ var loggedin = function (req, res, next) {
   }
 };
 
+/* Index routes  */
 router.get('/', indexController.getIndex);
 router.get('/about', indexController.getAbout);
 router.get('/contact', indexController.getContact);

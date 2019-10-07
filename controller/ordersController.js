@@ -8,12 +8,8 @@ module.exports.order_list = function(req, res) {
     var user = req.user;
     req.db.collection('orders').find().sort({"_id": -1}).toArray(function(err, result) {
         if (err) {
-            res.render('backend/orderlist', {
-                title: 'item List',
-                data: ''
-            })
+            console.log(err);
         } else {
-
             if (user.username === "boris") {
                 req.db.collection('orders').find().toArray(function(err, orders) {
                     if (err) {

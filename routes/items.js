@@ -2,10 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 var itemController = require('../controller/itemcontroller');
-var crud = require('../controller/crudController');
 
 
-/* GET home page. */
+/* Routes for Items */
 router.get('/', itemController.item_list);
 router.get('/:id', itemController.item_detail);
 router.get('/page/:p', itemController.item_pages);

@@ -11,7 +11,7 @@ var loggedin = function (req, res, next) {
     }
 };
 
-/* GET home page. */
+/* User routes */
 router.get('/',loggedin, userController.user_detail);
 router.get('/:id',loggedin, userController.user_update_get);
 router.post('/edit',loggedin, userController.user_update_post);

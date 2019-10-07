@@ -18,14 +18,12 @@ Item.find({}, function (err, result) {
 Item.find({  },{ tags: 1, _id: 0 }, function (err, result) {
     result.forEach(function (t) {
         t.tags.forEach(function (xxx) {
-
             tag.push(xxx);
         });
     });
 });
 Item.find({}, function(err, result) {
     count = result.length;
-
 });
 
 
@@ -34,7 +32,7 @@ Item.find({}, function(err, result) {
 exports.item_list = function(req, res) {
     var user = req.user;
     var current = 1;
-    var limit = 3;
+    var limit = 6;
     var pages = parseInt((count / limit) + 0.9);
 
     Item.find( {}, function(err, result) {
@@ -47,7 +45,7 @@ exports.item_list = function(req, res) {
                 res.render('itemlist', {
                     title: 'items List',
                     data: result,
-                    user: req.user,
+                    user: user,
                     current: current,
                     pages: pages,
                     tags: unique(tag.slice(0,6)),
@@ -79,7 +77,7 @@ exports.item_detail = function(req, res) {
 
 exports.item_pages = function(req, res) {
     var current = req.params.p;
-    var limit = 3;
+    var limit = 6;
     var skip = limit * (current-1);
     var pages = parseInt((count / limit) + 0.9);
 
@@ -240,21 +238,7 @@ exports.item_update_get = function(req, res) {
 // Handle Item update on POST. back
 exports.item_update_post = function(req, res) {
     var o_id = new ObjectId(req.body.id);
-    var item = {
-        _id: req.body.id,
-        name: req.body.name,
-        price: req.body.price,
-        amount: req.body.amount,
-        description: req.body.description,
-        content_text:req.body.content_text,
-        image: req.body.image,
-        gallery: req.body.gallery,
-        category: req.body.category,
-        tags: req.body.tags,
-        origin: req.body.origin,
-        status:req.body.status
-    };
-    console.log(o_id);
+
     req.db.collection('items').update(
         { "_id": o_id  },
         { $set : {

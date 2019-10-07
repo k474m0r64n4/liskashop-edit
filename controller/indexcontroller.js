@@ -2,10 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 
-
 module.exports.getIndex = function(req, res) {
-
-
     req.db.collection('items').find().sort({"_id": -1}).toArray(function(err, result) {
         if (err) {
             res.render('index', {
@@ -13,8 +10,6 @@ module.exports.getIndex = function(req, res) {
                 data: ''
             })
         } else {
-
-            console.log(result);
             res.render('index', {
                 title: 'items List',
                 data: result,
@@ -65,9 +60,6 @@ module.exports.getCart = function(req, res) {
 
         }
 
-
-
-
         res.render('cart', {
 
             title: 'items List',
@@ -88,7 +80,6 @@ module.exports.getCheckout = function(req, res) {
 
         var totalprice = 0;
 
-
         result.forEach(function (g) {
             r = g.items ;
         });
@@ -101,16 +92,9 @@ module.exports.getCheckout = function(req, res) {
 
             });
 
-
-
         }
 
-        console.log(result + " to:" + totalprice + " " + r );
-
-
-
         res.render('checkout', {
-
             title: 'items List',
             data:result,
             total: totalprice,
