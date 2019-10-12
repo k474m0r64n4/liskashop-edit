@@ -27,7 +27,7 @@
                         <% if(data) {%>
                         <thead>
                         <tr>
-                            <th class="product-thumbnail"><%= user.username %></th>
+                            <th class="product-thumbnail">User: <%= user.username %></th>
                             <th class="product-name">Ime </th>
                             <th class="product-weight">Jedinica mere</th>
                             <th class="product-quantity">Količina</th>
@@ -42,7 +42,6 @@
                         <% itm.forEach(function (o) { %>
                         <tr>
                             <td class="product-thumbnail">
-                                <img src="images/product/thumb-cart-01.jpg" alt="product-thumbnail">
                             </td>
                             <td class="product-name" data-title="Product">
                                 <a class="product-name" href="product-detail.html"><%= o.itemname %></a>
@@ -51,7 +50,8 @@
                             <td class="product-quantity" data-title="Quantity">
                                 <input name="itemid" value="<%= o.itemid %>" type="text" class="hidden">
                                 <input name="itemname" value="<%= o.itemname %>" type="text" class="hidden">
-                                <input step="1" min="0" max="" name="qty" value="<%= o.qty %>" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" type="number">
+                                <input style="width: 50%" step="1" min="0" max="" name="qty" value="<%= o.qty %>" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" type="number">
+
                             </td>
                             <td class="product-price" data-title="Price"><%= o.itemprice %> RSD</td>
                             <td class="product-subtotal" data-title="Total"><%= o.itemprice * o.qty %> RSD</td>

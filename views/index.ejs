@@ -284,9 +284,8 @@
                   <div class="footer-desc">
                     <form class="cart" action="/addtocart" method="post" name="form1">
                       <div class="quantity buttons-added">
-                        <input class="minus" value="-" type="button" id="minus" />
-                        <input class="input-text qty text" step="1" min="1" max=""  name="qty" id="qty" value="1" title="Qty" size="4" type="number" />
-                        <input class="plus" value="+" type="button" id="plus" />
+                        <input style="width: 50%" step="1" min="0" max="" name="qty" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" type="number">
+
                       </div>
                         <div class="hidden">
                             <input class="form-control disabled" name="itemid" id="itemid" value="<%= item._id %>" type="text"  >
@@ -301,8 +300,8 @@
                     </form>
                   </div>
                 </div>
-                <div class="product-meta">
-                  <p class="posted-in">Kategorija:
+                <div class="product-meta" style="padding-top: 25px">
+                  <p class="posted-in" style="padding-top: 45px">Kategorija:
                     <a href="/items/category/<%= item.category %>" rel="tag"><%= item.category %></a>
                   </p>
                   <p class="tagged-as">Tagovi:
