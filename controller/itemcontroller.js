@@ -109,7 +109,7 @@ exports.item_category = function(req, res) {
                         res.render('itemlist', {
                             title: 'items List',
                             data: result,
-                            user: user,
+                            user: req.user,
                             tags: unique(tag.slice(0, 6)),
                             current: 1,
                             pages: 0

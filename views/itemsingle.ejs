@@ -308,28 +308,30 @@
                                 </div>
                                 <div class="footer-desc">
                                     <form class="cart" action="/addtocart" method="post" name="form1">
-                                        <div class="quantity buttons-added">
-                                            <input class="minus" value="-" type="button" id="minus" />
-                                            <input class="input-text qty text" step="1" min="1" max=""  name="qty" id="qty" value="1" title="Qty" size="4" type="number" />
-                                            <input class="plus" value="+" type="button" id="plus" />
-                                        </div>
-                                        <div class="hidden">
-                                            <input class="form-control disabled" name="itemid" id="itemid" value="<%= item._id %>" type="text"  >
-                                            <input class="form-control disabled" name="itemname" id="itemname" value="<%= item.name %>" type="text"  >
-                                            <input class="form-control disabled" name="itemamount" id="itemamount" value="<%= item.amount %>" type="text"  >
+                                        <div class="col-md-4">
+                                            <div class="form-group organic-form xs-radius">
+                                                <input class="form-control" name="qty" id="qty" value="1" type="number">
+                                            </div>
+                                            <div class="hidden">
+                                                <input class="form-control disabled" name="itemid" id="itemid" value="<%= item._id %>" type="text"  >
+                                                <input class="form-control disabled" name="itemname" id="itemname" value="<%= item.name %>" type="text"  >
+                                                <input class="form-control disabled" name="itemamount" id="itemamount" value="<%= item.amount %>" type="text"  >
 
+                                            </div>
                                         </div>
-                                        <div class="group-btn-control-wrapper">
-                                            <button class="btn btn-brand no-radius" type="submit" name="Submit">DODAJ U KORPU</button>
+                                        <div class="col-md-8">
+                                            <div class="group-btn-control-wrapper">
+                                                <button class="btn btn-brand no-radius" type="submit" name="Submit">DODAJ U KORPU</button>
 
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                             <div class="product-meta">
-                                <p class="posted-in">Kategorija:
-                                    <a href="/items/category/<%= item.category %>" rel="tag"><%= item.category %></a>
-                                </p>
+                                    <p class="posted-in">Kategorija:
+                                        <a href="/items/category/<%= item.category %>" rel="tag"><%= item.category %></a>
+                                    </p>
                                 <p class="tagged-as">Tagovi:
                                     <% if(item.tags) { %>
                                     <% item.tags.forEach(function (t) {  %>

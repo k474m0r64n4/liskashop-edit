@@ -12,6 +12,10 @@ jQuery(document).ready(function( $ ) {
     },
     "navbar" : {
             title : 'Liskina Bašta'
+     "placeholder" : '?'
+    },
+    "navbar" : {
+            title : 'Liskina bašta'
           },
      "navbars": [
         {
