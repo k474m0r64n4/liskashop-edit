@@ -169,7 +169,7 @@ exports.item_create_post = function(req, res) {
         amount: req.body.amount,
         description: req.body.description,
         content_text:req.body.content_text,
-        image: req.body.image,
+        image:"",
         gallery: req.body.gallery,
         category: req.body.category,
         tags: req.body.tags,
@@ -186,28 +186,30 @@ exports.item_create_post = function(req, res) {
             if (doc) {
                 res.status(500).send('Item already exists')
             } else {
-                var tag = item.tags.split(",");
 
-                var record = new Item();
-                record.name = item.name;
-                record.price = item.price;
-                record.amount = item.amount;
-                record.description = item.description;
-                record.content_text = item.content_text;
-                record.image = item.image;
-                //record.gallery =  item.gallery ;
-                record.category = item.category;
-                record.tags = tag;
-                record.origin = item.origin;
-                record.status = item.status;
+                        var tag = item.tags.split(",");
 
-                record.save(function (err, items) {
-                    if (err) {
-                        res.status(500).send('db error')
-                    } else {
-                        res.redirect('/admin')
-                    }
-                })
+                        var record = new Item();
+                        record.name = item.name;
+                        record.price = item.price;
+                        record.amount = item.amount;
+                        record.description = item.description;
+                        record.content_text = item.content_text;
+                        record.image = "";
+                        //record.gallery =  item.gallery ;
+                        record.category = item.category;
+                        record.tags = tag;
+                        record.origin = item.origin;
+                        record.status = item.status;
+
+                        record.save(function (err, items) {
+                            if (err) {
+                                res.status(500).send('db error')
+                            } else {
+                                res.redirect('/admin')
+                            }
+                        })
+
             }
         }
     })
@@ -264,21 +266,11 @@ exports.item_update_post = function(req, res) {
 // Handle Item update on POST. back
 exports.item_upload_post = function(req, res) {
      var img = req.files.img;
-
-    img.mv("../liska/public/images/slike/" + img.name, function (err) {
+    console.log("jooj ;" + img.name);
+    img.mv("public/images/slike/" + img.name, function (err) {
         if (err)
             return res.status(500).send(err);
 
-        res.render('backend/createitem', {
-            title: 'Add New item',
-            user: req.user,
-            name: '',
-            price: '',
-            description: '',
-            image: img.name,
-            gallery:'',
-            category:''
-        })
 
     });
 

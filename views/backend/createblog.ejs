@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+</head>
+<body class="animsition">
+<div class="shop-layout-3" id="page">
+    <% include ../partials/header.ejs %>
+
+    <section >
+        <div class="container" style="width: 100%">
+            <div class="row">
+                <% include ../partials/adminheader.ejs %>
+                <div class="col-md-1" style="padding-top: 398px;">
+                    <form ref='uploadForm'
+                          id='uploadForm'
+                          action='/admin/blog/upload'
+
+                          method='post'
+                          encType="multipart/form-data">
+                        <div class="col-lg-8 bottommargin">
+                            <input type="file" name="img" id="img">
+                            <input type="text" name="img" id="img">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group organic-form xs-radius">
+                                <label>Title: </label>
+                                <input class="form-control" name="title" id="title" type="text">
+                            </div>
+                        </div>
+                        <input type='submit' value='Upload!' class="btn btn-info" />
+                    </form>
+
+                </div>
+
+                <div class="col-md-8">
+
+                    <div class="container text-left">
+
+                        <div class="row form-contact" style="margin-right: 150px">
+                            <div class="row main">
+                                <form ref='uploadForm'
+                                      id='uploadForm'
+                                      action='/admin/blog/create'
+                                      method='post'
+                                      encType="multipart/form-data">
+                                    <div class="col-md-6">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Title: </label>
+                                            <input class="form-control" name="title" id="title" type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Description: </label>
+                                            <textarea class="form-control"  name="description" id="description"  rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Content text: </label>
+                                            <textarea class="form-control"  name="content_text" id="content_text"  rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Image: </label>
+
+                                        <div class="form-group organic-form xs-radius">
+                                            <input type="file" name="img" id="img">
+                                            <input type="text" name="img" id="img">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Author: </label>
+                                            <input class="form-control"  name="authorid" id="authorid" value="<%= user %>"  type="text" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group organic-form xs-radius">
+                                            <button class="btn btn-brand pill" type="submit" name="Submit">ADD ITEM</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+<% include ../partials/footer.ejs %>
+<script src="/js/library/jquery.min.js"></script>
+<script src="/js/library/bootstrap.min.js"></script>
+<script src="/js/function-check-viewport.js"></script>
+<script src="/js/library/slick.min.js"></script>
+<script src="/js/library/select2.full.min.js"></script>
+<script src="/js/library/imagesloaded.pkgd.min.js"></script>
+<script src="/js/library/jquery.mmenu.all.min.js"></script>
+<script src="/js/library/rellax.min.js"></script>
+<script src="/js/library/isotope.pkgd.min.js"></script>
+<script src="/js/library/bootstrap-notify.min.js"></script>
+<script src="/js/library/bootstrap-slider.js"></script>
+<script src="/js/library/in-view.min.js"></script>
+<script src="/js/library/countUp.js"></script>
+<script src="/js/library/animsition.min.js"></script>
+<script src="/js/global.js"></script>
+<script src="/js/config-mm-menu.js"></script>
+<script src="/js/config-set-bg-blog-thumb.js"></script>
+<script src="/js/config-accrodion.js"></script>
+
+<script >
+    $(document).ready(function() {
+        $("#input-5").fileinput({showCaption: false});
+
+        $("#input-6").fileinput({
+            showUpload: false,
+            maxFileCount: 10,
+            mainClass: "input-group-lg",
+            showCaption: true
+        });
+
+        $("#input-8").fileinput({
+            mainClass: "input-group-md",
+            showUpload: true,
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: "Pick Image",
+            browseIcon: "<i class=\"icon-picture\"></i> ",
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: "<i class=\"icon-trash\"></i> ",
+            uploadClass: "btn btn-info",
+            uploadLabel: "Upload",
+            uploadIcon: "<i class=\"icon-upload\"></i> "
+        });
+
+        $("#input-9").fileinput({
+            previewFileType: "text",
+            allowedFileExtensions: ["txt", "md", "ini", "text"],
+            previewClass: "bg-warning",
+            browseClass: "btn btn-primary",
+            removeClass: "btn btn-secondary",
+            uploadClass: "btn btn-secondary",
+        });
+
+        $("#input-10").fileinput({
+            showUpload: false,
+            layoutTemplates: {
+                main1: "{preview}\n" +
+                "<div class=\'input-group {class}\'>\n" +
+                "   <div class=\'input-group-append\'>\n" +
+                "       {browse}\n" +
+                "       {upload}\n" +
+                "       {remove}\n" +
+                "   </div>\n" +
+                "   {caption}\n" +
+                "</div>"
+            }
+        });
+
+        $("#input-11").fileinput({
+            maxFileCount: 10,
+            allowedFileTypes: ["image", "video"]
+        });
+
+        $("#input-12").fileinput({
+            showPreview: false,
+            allowedFileExtensions: ["zip", "rar", "gz", "tgz"],
+            elErrorContainer: "#errorBlock"
+        });
+    });
+
+</script>
+
+
+</body>
+</html>
+
+
+

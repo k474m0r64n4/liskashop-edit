@@ -27,6 +27,7 @@
                           encType="multipart/form-data">
                         <div class="col-lg-8 bottommargin">
                             <input type="file" name="img" id="img">
+                            <input type="text" name="img" id="img">
                         </div>
                         <input type='submit' value='Upload!' class="btn btn-info" />
                     </form>
@@ -72,8 +73,9 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label>Image: </label>
+
                                         <div class="form-group organic-form xs-radius">
-                                            <input class="form-control"  name="image" id="image" value="<%= image %>" type="text" >
+                                            <input type="file" name="image" id="image"  value="<%= image %>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">

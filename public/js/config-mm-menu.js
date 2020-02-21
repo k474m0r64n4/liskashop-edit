@@ -8,16 +8,16 @@ jQuery(document).ready(function( $ ) {
         zposition   : "front"
      },
      "searchfield" : {
-     "placeholder" : 'Need some fresh vegatables?'
+     "placeholder" : 'Pretraga'
     },
     "navbar" : {
-            title : 'Organic Shop'
+            title : 'Liskina Bašta'
           },
      "navbars": [
         {
            "position": "top",
            "content": [
-             '<a href="index.html"><img src="images/logo.png" class="img-responsive" alt="Image"></a>'
+             '<a href="/"><img src="/images/slike/liskina.png" class="img-responsive" alt="Image"></a>'
            ]
         },
         {

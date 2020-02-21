@@ -35,6 +35,9 @@ var userSchema = new schema({
     phone: {
         type: String,
         required: true
+    },
+    role: {
+      type: String
     }
 });
 
