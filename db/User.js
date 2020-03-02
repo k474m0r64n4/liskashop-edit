@@ -38,6 +38,15 @@ var userSchema = new schema({
     },
     role: {
       type: String
+    },
+    bio: {
+        type: String
+    },
+    image: {
+        type: String
+    },
+    createdOn: {
+        type: String
     }
 });
 

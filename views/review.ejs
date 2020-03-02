@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+</head>
+<body class="animsition">
+<div class="about" id="page">
+    <% include partials/header.ejs %>
+    <section class="sub-header shop-layout-1">
+        <img class="rellax bg-overlay" src="/images/slike/shoppozadina.jpg" alt="">
+        <div class="overlay-call-to-action"></div>
+        <h3 class="heading-style-3">Profile</h3>
+    </section>
+    <section class="boxed-sm">
+        <div class="container">
+            <div class="row blog-v reverse">
+                <div class="col-md-12">
+                    <div class="post">
+                        <div class="img-wrapper js-set-bg-blog-thumb">
+                            <img src="images/slike/liska.jpg" alt="blog-thumb">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <% if(data){ %>
+                        <% data.forEach(function (o) { %>
+                        <div class="comment-area-form">
+                            <h4 class="title-comment">Leave a Comment</h4>
+                            <p>Your email address will not be published.</p>
+                            <form action="/review/<%= o._id %>" method="post" name="form1">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group Orchid-form xs-radius">
+                                            <input class="form-control" type="text" id="rev" name="rev" value="pozitivna" placeholder="Ocena">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group Orchid-form xs-radius">
+                                            <textarea class="form-control" type="text" id='comment' name="comment" rows="3" placeholder="Your Comment"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <button class="btn btn-brand pill" type="submit">SUBMIT</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <% })} %>
+                    </div>
+                </div>
+                <div class="col-md-12">
+
+                    <div class="desc" style="padding-top: 50px;">
+                        <h3 class="title-about">My orders: </h3>
+                        <table class="shop_attributes table table-striped table-bordered">
+                            <tbody>
+                            <tr style='text-align:left; background-color:#CCC'>
+                                <th>Order ID</th>
+                                <th>Items </th>
+                                <th>Total price</th>
+                                <th>Status</th>
+
+                                <th>Action</th>
+                            </tr>
+                            <% if(data){ %>
+                            <% data.forEach(function (o) { %>
+                            <tr>
+                                <td><%= o._id %></td>
+                                <td>
+                                    <% o.items.forEach(function (v) { %>
+                                    <%= v.itemid %>,
+                                    <% }) %>
+                                </td>
+                                <td>
+                                    <p><%= o.orderprice %> RSD</p>
+                                </td>
+                                <td><%= o.status %></td>
+
+                                <td>
+                                    <div style="float:left">
+                                        <a href="/review/<%= o._id %>">Review</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% })} %>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<% include partials/footer.ejs %>
+<% include partials/footerscripts.ejs %>
+</body>
+</html>

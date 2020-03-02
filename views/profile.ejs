@@ -72,12 +72,11 @@
                   <td><%= o.status %></td>
 
                   <td>
+                    <% if (o.status === "sent") {%>
                     <div style="float:left">
-                      <form method="post" action="" style="float:right">
-                        <input disabled type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" />
-                        <input type="hidden" name="_method" value="DELETE" />
-                      </form>
+                      <a href="/review/<%= o._id %>">Review</a>
                     </div>
+                    <% } %>
                   </td>
                 </tr>
                 <% })} %>

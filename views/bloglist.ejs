@@ -25,98 +25,23 @@
                             <div class="col-md-4">
                                 <div class="post">
                                     <div class="img-wrapper js-set-bg-blog-thumb">
-                                        <a href="/blog/<%= blog._id%>">
+                                        <a href="/blog/<%= blog._id %>">
                                             <img src="/images/slike/blog/<%= blog.image %>" alt="Image" />
                                         </a>
                                     </div>
                                     <div class="desc">
                                         <h4>
-                                            <a href="blog-detail.html"><%= blog.title %></a>
+                                            <a href="/blog/<%= blog._id %>"><%= blog.title %></a>
                                         </h4>
                                         <p class="meta">
-                                            <span class="time">Feberuary 05, 2017</span>
+                                            <span class="time"><%= moment(blog.createdOn).format("Do MMM YYYY");%></span>
                                             <span class="comment">2</span>
                                         </p>
-                                        <p><%= blog.description %> </p>
+                                        <p><%- blog.description %> </p>
                                     </div>
                                 </div>
                             </div>
                             <% })} %>
-                        </div>
-                        <div class="row">
-                        <div class="col-md-12 text-center">
-                            <nav>
-                                <ul class="pagination pagination-style-2">
-                                    <li>
-                                        <a class="prev page-numbers" href="#">
-                                            <i class="fa fa-long-arrow-left"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="page-numbers" href="#">3</a>
-                                    </li>
-                                    <li>
-                                        <a class="page-numbers" href="#">4</a>
-                                    </li>
-                                    <li>
-                                        <span class="page-numbers current">5</span>
-                                    </li>
-                                    <li>
-                                        <a class="next page-numbers" href="#">
-                                            <i class="fa fa-long-arrow-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                    </div>
-
-
-                    <div class="col-md-9">
-                        <div class="woocommerce-top-control wrapper">
-                            <div class="woocommerce-top-control">
-                                <p class="woocommerce-result-count">Showing 1 - 12 of 30 results</p>
-                                <form class="woocommerce-ordering select-custom-wrapper" method="get">
-                                    <select class="orderby select-custom-wrapper" name="orderby">
-                                        <option value="menu_order" selected="selected">Default sorting</option>
-                                        <option value="popularity">Sort by popularity</option>
-                                        <option value="rating">Sort by average rating</option>
-                                        <option value="date">Sort by newness</option>
-                                        <option value="price">Sort by price: low to high</option>
-                                        <option value="price-desc">Sort by price: high to low</option>
-                                    </select>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="row product-grid-equal-height-wrapper product-equal-height-3-columns flex multi-row">
-                            <% if(data){ %>
-                            <% data.forEach(function (blog) {  %>
-                            <figure class="item">
-                                <div class="product product-style-1">
-                                    <div class="img-wrapper">
-                                        <a href="/items/u">
-                                            <img class="img-responsive" src="/images/slike/blog/<%= blog.image %>" alt="product thumbnail" />
-                                        </a>
-                                        <div class="product-control-wrapper bottom-right">
-                                            <div class="wrapper-control-item">
-                                                <a class="js-quick-view" href="#" type="button" data-toggle="modal" data-target="#quick-view-product-9">
-                                                    <span class="lnr lnr-eye"></span>
-                                                </a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <figcaption class="desc text-center">
-                                        <h3>
-                                            <a class="product-name" href="/items/8"><%= blog.title %></a>
-                                        </h3>
-                                        <span class="price"><%= blog.description %></span>
-                                    </figcaption>
-                                </div>
-                            </figure>
-                            <% })} %>
-
                         </div>
                         <div class="row">
                             <div class="col-md-12 text-center">
@@ -144,8 +69,11 @@
                                     </ul>
                                 </nav>
                             </div>
-                        </div>
                     </div>
+                    </div>
+
+
+
                 </div>
             </div>
         </div>

@@ -34,7 +34,7 @@
                                         <th>price</th>
                                         <th>description</th>
                                         <th>image</th>
-                                        <th>gallery</th>
+                                        <th>Venor</th>
                                         <th>Category</th>
                                         <th>Action</th>
                                     </tr>
@@ -46,11 +46,11 @@
                                         <td><%= item.price %></td>
                                         <td><%= item.description %></td>
                                         <td><%= item.image %></td>
-                                        <td><%= item.gallery %></td>
+                                        <td><%= item.vendor %></td>
                                         <td><%= item.category %></td>
                                         <td>
                                             <div style="float:left">
-                                                <a href='/admin/update/<%= item._id %>'>Edit</a> &nbsp;
+                                                <a href='/admin/update/<%= item._id %>'><button>Edit</button></a> &nbsp;
                                                 <form method="post" action="/admin/delete/<%= item._id %>" style="float:right">
                                                     <input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" />
                                                     <input type="hidden" name="_method" value="DELETE" />

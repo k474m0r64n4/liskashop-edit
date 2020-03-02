@@ -1,20 +1,25 @@
-var express = require('express');
-var router = express.Router();
+var moment = require('moment');
+var Blog = require('../db/blogModel');
+var Item = require('../db/item');
+var User = require('../db/User');
 
 
 module.exports.getIndex = function(req, res) {
     req.db.collection('items').find().sort({"_id": -1}).toArray(function(err, result) {
         if (err) {
-            res.render('index', {
-                title: 'item List',
-                data: ''
-            })
+            console.log(err);
         } else {
+            Blog.find({}, function (err, blog) {
+                console.log(blog);
+
             res.render('index', {
                 title: 'items List',
                 data: result,
+                data2: blog,
+                moment: moment,
                 user: req.user
             })
+            }).sort({"_id": -1}).limit(2);
         }
     })
 };
@@ -93,14 +98,19 @@ module.exports.getCheckout = function(req, res) {
             });
 
         }
+        User.find({ username:user.username }, function (err, usr) {
+
+        console.log(usr);
 
         res.render('checkout', {
             title: 'items List',
             data:result,
+            data2: usr,
             total: totalprice,
             user: req.user,
             itm: r
         })
+        });
     })
 };
 

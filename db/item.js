@@ -27,6 +27,9 @@ var itemSchema = new schema({
     category: {
         type: String
     },
+    vendor: {
+        type: String
+    },
     tags: {
         type: Array
     },
@@ -35,6 +38,9 @@ var itemSchema = new schema({
     },
     status: {
         type: String
+    },
+    createdOn: {
+        type: Date
     }
 });
 

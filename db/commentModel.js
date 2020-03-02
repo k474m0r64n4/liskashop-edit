@@ -6,11 +6,17 @@ var commentSchema = new schema({
     blogId:{
         type:String
     },
-    userId: {
+    username: {
+        type: String
+    },
+    email: {
         type: String
     },
     comText: {
         type: String
+    },
+    createdOn: {
+        type: Date
     },
     status: {
         type: String

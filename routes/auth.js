@@ -5,6 +5,8 @@ var User = require('../db/User');
 /* Passport auth. */
 module.exports = function (passport) {
     router.post('/signup', function (req, res) {
+        var today = new Date();
+
         var usr = {
             username: req.body.username,
             password: req.body.password,
@@ -27,14 +29,16 @@ module.exports = function (passport) {
                     res.status(500).send('Username already exists')
                 } else {
                     var record = new User();
-                    record.username = username;
-                    record.password = record.hashPassword(password);
+                    record.username = usr.username;
+                    record.password = record.hashPassword(usr.password);
                     record.firstname = usr.firstname;
                     record.lastname = usr.lastname;
                     record.email = usr.email;
                     record.phone = usr.phone;
                     record.address = usr.address;
                     record.city = usr.city;
+                    record.role = 'customer';
+                    record.createdOn = today;
 
                     record.save(function (err, user) {
                         if (err) {

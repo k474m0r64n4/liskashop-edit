@@ -34,10 +34,17 @@ router.get('/logout',loggedin, indexController.getLogout);
 router.get('/profile/',loggedin, userController.user_detail);
 router.get('/profile/:id',loggedin, userController.user_update_get);
 router.post('/profile/edit',loggedin, userController.user_update_post);
+router.post('/profile/upload', loggedin, userController.user_upload);
+router.get('/review/:id', loggedin, orderController.review_get);
+router.post('/review/:id', loggedin, orderController.review_post);
+
+router.get('/vendor/:name', itemController.vendor_detail);
 
 /* Blog routes */
 router.get('/blog/', blogController.blog_list);
 router.get('/blog/:id', blogController.blog_detail);
+
+router.post('/comment/post', blogController.comment_post);
 
 /* Routes for Items */
 router.get('/items/', itemController.item_list);

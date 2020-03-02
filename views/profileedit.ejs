@@ -26,10 +26,11 @@
                         <div class="img-wrapper js-set-bg-blog-thumb">
                             <img src="/images/slike/liska.jpg" alt="blog-thumb">
                         </div>
+
                         <% if(data){%>
                         <% data.forEach(function (p) { %>
                         <div class="desc">
-                            <form action="/profile/edit" method="post" name="form1">
+                            <form  action='/profile/edit' method='post' >
                                 <div class="col-md-6">
                                     <div class="form-group organic-form xs-radius">
                                         <input class="form-control" name="firstname" id="firstname" value="<%= p.firstname %>" type="text">
@@ -63,6 +64,13 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group organic-form xs-radius">
+                                        <input class="form-control"  name="bio" id="bio" value="<%= p.bio %>"  type="text" >
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12">
+                                    <div class="form-group organic-form xs-radius">
                                         <button class="btn btn-brand pill" type="submit" name="Submit">EDIT PROFILE</button>
                                     </div>
                                 </div>
@@ -72,12 +80,96 @@
                         <% }) } %>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 </div>
 
 <% include partials/footer.ejs %>
-<% include partials/footerscripts.ejs %>
+
+<script src="/js/library/jquery.min.js"></script>
+<script src="/js/library/bootstrap.min.js"></script>
+<script src="/js/function-check-viewport.js"></script>
+<script src="/js/library/slick.min.js"></script>
+<script src="/js/library/select2.full.min.js"></script>
+<script src="/js/library/imagesloaded.pkgd.min.js"></script>
+<script src="/js/library/jquery.mmenu.all.min.js"></script>
+<script src="/js/library/rellax.min.js"></script>
+<script src="/js/library/isotope.pkgd.min.js"></script>
+<script src="/js/library/bootstrap-notify.min.js"></script>
+<script src="/js/library/bootstrap-slider.js"></script>
+<script src="/js/library/in-view.min.js"></script>
+<script src="/js/library/countUp.js"></script>
+<script src="/js/library/animsition.min.js"></script>
+<script src="/js/global.js"></script>
+<script src="/js/config-mm-menu.js"></script>
+<script src="/js/config-set-bg-blog-thumb.js"></script>
+<script src="/js/config-accrodion.js"></script>
+
+<script >
+    $(document).ready(function() {
+        $("#input-5").fileinput({showCaption: false});
+
+        $("#input-6").fileinput({
+            showUpload: false,
+            maxFileCount: 10,
+            mainClass: "input-group-lg",
+            showCaption: true
+        });
+
+        $("#input-8").fileinput({
+            mainClass: "input-group-md",
+            showUpload: true,
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: "Pick Image",
+            browseIcon: "<i class=\"icon-picture\"></i> ",
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: "<i class=\"icon-trash\"></i> ",
+            uploadClass: "btn btn-info",
+            uploadLabel: "Upload",
+            uploadIcon: "<i class=\"icon-upload\"></i> "
+        });
+
+        $("#input-9").fileinput({
+            previewFileType: "text",
+            allowedFileExtensions: ["txt", "md", "ini", "text"],
+            previewClass: "bg-warning",
+            browseClass: "btn btn-primary",
+            removeClass: "btn btn-secondary",
+            uploadClass: "btn btn-secondary",
+        });
+
+        $("#input-10").fileinput({
+            showUpload: false,
+            layoutTemplates: {
+                main1: "{preview}\n" +
+                "<div class=\'input-group {class}\'>\n" +
+                "   <div class=\'input-group-append\'>\n" +
+                "       {browse}\n" +
+                "       {upload}\n" +
+                "       {remove}\n" +
+                "   </div>\n" +
+                "   {caption}\n" +
+                "</div>"
+            }
+        });
+
+        $("#input-11").fileinput({
+            maxFileCount: 10,
+            allowedFileTypes: ["image", "video"]
+        });
+
+        $("#input-12").fileinput({
+            showPreview: false,
+            allowedFileExtensions: ["zip", "rar", "gz", "tgz"],
+            elErrorContainer: "#errorBlock"
+        });
+    });
+
+</script>
+
 </body>
 </html>

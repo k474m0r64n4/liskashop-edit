@@ -34,8 +34,8 @@
                                     <th>Action</th>
                                 </tr>
 
-                                <% if(orders){ %>
-                                <% orders.forEach(function (o) { %>
+                                <% if(data){ %>
+                                <% data.forEach(function (o) { %>
                                 <tr>
                                     <td><%= o._id %></td>
                                     <td><%= o.username %></td>
@@ -47,15 +47,31 @@
                                     <td>
                                         <p><%= o.orderprice %> RSD</p>
                                     </td>
-                                    <td><%= o.status %></td>
-
                                     <td>
                                         <div style="float:left">
 
-                                            <a href="/admin/orders/<%= o._id %>">Details</a>
+                                            <a href="/admin/orders/<%= o._id %>"><button >Details</button></a>
 
                                         </div>
                                     </td>
+                                    <td>
+                                        <form action="/admin/orders/update/<%= o._id %>" method="post">
+                                            <div class="col-md-4">
+                                            <select  class="form-control" name="status" id="status">
+                                                <option value="<%= o.status %>"><%= o.status %></option>
+                                                <option value="confirm">Confirm</option>
+                                                <option value="sent">Sent</option>
+                                                <option value="cancelled">Cancelled</option>
+                                            </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                            <button  type="submit" name="Submit">Change</button>
+                                            </div>
+                                        </form>
+
+                                    </td>
+
+
                                 </tr>
                                 <% })} %>
                                 </tbody>

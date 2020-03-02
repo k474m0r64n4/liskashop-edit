@@ -19568,12 +19568,14 @@ body.modal-open .mm-slideout {
 
 .comment-area .title-comment {
   margin-bottom: 20px;
+  margin-top: 40px;
 }
 
 .comment-list {
   list-style: none;
   border: 1px solid #cccccc;
   padding: 20px 10px;
+    background-color: #f5cda8;
 }
 
 .comment-list .avatar {
@@ -19600,13 +19602,12 @@ body.modal-open .mm-slideout {
 .comment-list .author {
   font-size: 15px;
   font-family: "Playfair Display", serif;
-  padding-top: 20px;
   margin-bottom: 5px;
 }
 
 .comment-list .time {
   color: #666666;
-  font-size: 13px;
+  font-size: 11px;
   margin-bottom: 15px;
 }
 
@@ -21398,7 +21399,11 @@ header .widget-control-header .dropdown-menu {
 }
 
 .blog-v .post .desc .sapo {
-  margin-bottom: 26px;
+  margin-bottom: 20px;
+}
+
+.blog-v .post .desc .role {
+  margin-bottom: 0px;
 }
 
 .blog-v .post .desc h3 {
@@ -22243,7 +22248,8 @@ form.cart .btn-wishlist {
 }
 
 .blog-detail-03 .content {
-  background-color: #f2f5f6;
+  background-color: #f5cda8;
+  padding-bottom: 20px;
 }
 
 .blog-detail-03 .content .sapo, .blog-detail-03 .content > .row {
@@ -22267,6 +22273,9 @@ form.cart .btn-wishlist {
 
 .blog-detail-03 .comment-area-form {
   margin-bottom: 85px;
+    background-color: #f5cda8;
+    padding: 10px;
+    border: 1px solid #cccccc;
 }
 
 .blog-detail-03 .comment-area-form .btn {

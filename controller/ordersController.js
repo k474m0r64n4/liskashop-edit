@@ -2,74 +2,54 @@ var express = require('express');
 var router = express.Router();
 var ObjectId = require('mongodb').ObjectId;
 var Orders = require('../db/orderModel');
+var User = require('../db/User');
+var Review = require('../db/reviewModel');
 
 // Display list of all Orders.
 module.exports.order_list = function(req, res) {
     var user = req.user;
-    req.db.collection('orders').find().sort({"_id": -1}).toArray(function(err, result) {
+    Orders.find({ }, function(err, result) {
         if (err) {
             console.log(err);
         } else {
-            if (user.username === "boris") {
-                req.db.collection('orders').find().toArray(function(err, orders) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        console.log(orders);
-                        res.render('backend/orderlist', {
-                            title: 'items List',
-                            user: req.user,
-                            data: result,
-                            orders: orders
-                        })
-                    }
-                });
-            }else{
-
-                res.render('cart', {
+                res.render('backend/orderlist', {
 
                     title: 'items List',
                     data: result,
                     user: user.username
                 })
             }
-        }
-    })
-};
+
+})};
 
 // Display detail page for a specific Order.
 exports.order_detail = function(req, res) {
-    var user = req.user.username;
+    var user = req.user;
     var o_id = new ObjectId(req.params.id);
 
     req.db.collection('orders').find({"_id": o_id}).toArray(function(err, result) {
         if (err) {
-            res.render('backend/userlist', {
-                title: 'item List',
-                data: ''
-            })
+            console.log(err);
         } else {
-            if (user  === "boris") {
-                console.log(result[0].username);
-                req.db.collection('users').find({"username": result[0].username}).toArray(function(err, usr) {
-                    res.render('backend/orderdetail', {
-                        title: 'item List',
-                        data: result,
-                        data2: usr,
-                        user: req.user
-                    })
-                })
-
-
-            } else {
-
-                res.render('profile', {
+            User.find({ "username": result[0].username }, function (err, userinfo) {
+                res.render('backend/orderdetail', {
                     title: 'items List',
-                    data: result
+                    data: result,
+                    data2: userinfo,
+                    user: user
                 })
-            }
+            });
         }
     })};
+
+// Display detail page for a specific Order.
+exports.order_update_status = function(req, res) {
+    var o_id = new ObjectId(req.params.id);
+    var status = req.body.status;
+
+    req.db.collection('orders').update({"_id": o_id},{ $set: { status: status}});
+    res.redirect('/admin/orders');
+};
 
 // add to cart post
 exports.addToCart = function(req, res) {
@@ -139,11 +119,67 @@ exports.addToCart = function(req, res) {
 
 };
 
+exports.review_get = function(req, res) {
+    var user = req.user;
+    var o_id = new ObjectId(req.params.id);
+    Orders.find({"_id": o_id}, function (err, result) {
+
+
+        res.render('review', {
+            title: 'Review',
+            data: result,
+            items: "hello",
+            user: user
+        })
+    } );
+};
+
+exports.review_post = function(req, res) {
+    var today = new Date();
+    var user = req.user;
+    var o_id = new ObjectId(req.params.id);
+    var itemIds = [];
+
+    var rev = {
+        rev: req.body.rev,
+        comment:req.body.comment,
+    };
+
+    Orders.find({"_id": o_id}, function (err, result) {
+        var xxx = result[0].items;
+        xxx.forEach(function (x) {
+            itemIds.push(x.itemid);
+
+        });
+
+        req.db.collection('orders').update({"_id": o_id},{ $set: { status: "reviewed"}});
+
+
+    var record = new Review();
+    record.orderId = o_id;
+    record.itemIds = itemIds;
+    record.username = user.username;
+    record.rev = rev.rev;
+    record.comment = rev.comment;
+    record.createdOn = today;
+
+
+    record.save(function (err, revs) {
+        if (err) {
+            res.status(500).send('db error')
+        } else {
+            res.redirect('/profile' )
+        }
+    });
+    });
+
+};
+
 exports.conformOrder = function(req, res) {
 
     var user = req.user.username;
 
-    req.db.collection('orders').update({"username": user, "status": "open"},{ $set: { status: "conform"}});
+    req.db.collection('orders').update({"username": user, "status": "open"},{ $set: { status: "confirm"}});
     res.redirect('/profile');
 
 

@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var fileUpload = require('express-fileupload');
 var ObjectId = require('mongodb').ObjectId;
 
 var User = require('../db/User');
@@ -44,7 +45,7 @@ exports.user_detail = function(req, res) {
         if (err) {
             console.log(err);
         } else  {
-                req.db.collection('orders').find({username: user, status: "conform"}).toArray(function(err, orders) {
+                req.db.collection('orders').find({username: user, $or: [ { status: "sent" }, { status: "confirm" }, { status: "reviewed" } ]  }).toArray(function(err, orders) {
                     if (err) {
                         console.log(err);
                     } else {
@@ -61,6 +62,9 @@ exports.user_detail = function(req, res) {
 };
 
 
+
+
+
 // Handle Author delete on POST.
 exports.user_delete_post = function(req, res) {
     res.send('NOT IMPLEMENTED: Author delete POST');
@@ -74,7 +78,6 @@ exports.user_update_get = function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            console.log(result);
             res.render('profileedit', {
                 title: 'items List',
                 user: req.user,
@@ -87,15 +90,35 @@ exports.user_update_get = function(req, res) {
 // Handle Author update on POST.
 exports.user_update_post = function(req, res) {
     var user = req.user;
+
+
     var data = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
         phone: req.body.phone,
         address: req.body.address,
-        city: req.body.city
+        city: req.body.city,
+        bio: req.body.bio
     };
 
     req.db.collection('users').update({"username": user.username}, { $set: data  });
     res.redirect('/profile');
+};
+
+
+// Handle Author update on POST.
+exports.user_upload = function(req, res) {
+    var user = req.user;
+
+    var img = req.files.img;
+
+    img.mv("public/images/users/" + img.name, function (err) {
+        if (err)
+            return res.status(500).send(err);
+
+        req.db.collection('users').update({"username": user.username}, { $set: { image: img.name }  });
+        res.redirect('/profile');
+    });
+
 };

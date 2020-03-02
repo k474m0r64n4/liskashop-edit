@@ -14,7 +14,11 @@
 <div class="shop-detail-3 woocommerce" id="page">
 
     <% include partials/header.ejs %>
-
+    <section class="sub-header shop-layout-1">
+        <img class="rellax bg-overlay" src="/images/slike/shoppozadina.jpg" alt="">
+        <div class="overlay-call-to-action"></div>
+        <h3 class="heading-style-3">Proizvod</h3>
+    </section>
     <section class="boxed-sm">
         <div class="container">
             <% if(data){%>
@@ -27,20 +31,20 @@
                                 <% if(item.gallery){%>
                                 <% item.gallery.forEach(function (g) {  %>
                                 <div class="item">
-                                    <img class="img-responsive" src="/images/slike/<%= g %>" alt="product thumbnail">
+                                    <img class="img-responsive" src="/images/items/<%= g %>" alt="product thumbnail">
                                 </div>
                                 <% }) } else { %>
 
                                 <% } %>
                                 <div class="item">
-                                    <img class="img-responsive" src="/images/slike/<%= item.image %>" alt="product thumbnail">
+                                    <img class="img-responsive" src="/images/items/<%= item.image %>" alt="product thumbnail">
                                 </div>
                             </div>
                             <div class="thumbnail-carousel">
                                 <% if(item.gallery) { %>
                                 <% item.gallery.forEach(function (g) {  %>
                                 <div class="item">
-                                    <img class="img-responsive" src="/images/slike/<%= g %>" alt="product thumbnail">
+                                    <img class="img-responsive" src="/images/items/<%= g %>" alt="product thumbnail">
                                 </div>
                                 <% })} %>
                             </div>
@@ -96,6 +100,11 @@
                             </div>
                             <div class="widget-social align-left">
                                 <ul>
+                                    <li>
+                                        <a  href="/vendor/<%= item.vendor %>">
+                                           <%= item.vendor %>
+                                        </a>
+                                    </li>
                                     <li>
                                         <a class="facebook" data-toggle="tooltip" title="Facebook" href="http://www.facebook.com/Upperthemes">
                                             <i class="fa fa-facebook"></i>
@@ -176,7 +185,10 @@
                                 </table>
                             </div>
                             <div class="tab-pane fade" id="Review" role="tabpanel">
+
                                 <ol class="comment-list">
+                                    <% if(revs.length >0){ %>
+                                    <% revs.forEach(function (r) { %>
                                     <li>
                                         <div class="the-comment">
                                             <div class="avatar">
@@ -184,32 +196,22 @@
                                             </div>
                                             <div class="comment-box">
                                                 <div class="comment-author meta">
-                                                    <p class="author">Mark Hunt</p>
-                                                    <p class="time">15 March 2017</p>
+                                                    <p class="author"><%= r.username %></p>
+                                                    <p class="time"><%= r.rev %></p>
                                                 </div>
                                                 <div class="comment-text">
-                                                    <p>This is a test … Quisque ligulas ipsum, euismod atras vulputate iltricies etri elit.This is a test … </p>
+                                                    <p><%= r.comment %></p>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
-                                    <li>
-                                        <div class="the-comment">
-                                            <div class="avatar">
-                                                <img class="avatar" alt="avatar" src="/images/comment/02.png">
-                                            </div>
-                                            <div class="comment-box">
-                                                <div class="comment-author meta">
-                                                    <p class="author">Lori Peters</p>
-                                                    <p class="time">16 March 2017</p>
-                                                </div>
-                                                <div class="comment-text">
-                                                    <p>This is a reply test … </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                   <% } ) %>
+                                    <% } else{ %>
+                                    <p>Trenutno nema ocena</p>
+                                    <% } %>
                                 </ol>
+
+
                             </div>
                         </div>
                     </div>
@@ -231,7 +233,7 @@
                                 <div class="product product-style-1">
                                     <div class="img-wrapper">
                                         <a href="/items/<%= item._id%>">
-                                            <img class="img-responsive" src="/images/slike/<%= item.image%>" alt="product thumbnail">
+                                            <img class="img-responsive" src="/images/items/<%= item.image%>" alt="product thumbnail">
                                         </a>
                                         <div class="product-control-wrapper bottom-right">
                                             <div class="wrapper-control-item">

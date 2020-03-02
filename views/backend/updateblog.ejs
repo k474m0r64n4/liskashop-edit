@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <!-- Fonts
+           ============================================= -->
+    <link href="http://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i,800,800i%7CPoppins:300,400,500,600,700" rel="stylesheet" type="text/css">
+
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+<body class="animsition">
+<div class="shop-layout-3" id="page">
+    <% include ../partials/header.ejs %>
+
+    <section >
+        <div class="container" style="width: 100%">
+            <div class="row">
+                <% include ../partials/adminheader.ejs %>
+
+
+                <div class="col-md-8">
+
+                    <div class="container text-left">
+
+                        <div class="row form-contact" style="margin-right: 150px">
+                            <div class="row main">
+                                <form ref='uploadForm'
+                                      id='uploadForm'
+                                      action='/admin/blog/update'
+                                      method='post'
+                                      encType="multipart/form-data">
+                                    <% if(data) { %>
+                                    <% data.forEach(function(blog){ %>
+                                    <div class="col-md-6">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Title: </label>
+                                            <input class="form-control" name="title" id="title" type="text" value="<%= blog.title %>">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Id: </label>
+                                            <input class="form-control" name="id" id="id" type="text" value="<%= blog._id %>">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Description: </label>
+                                            <textarea class="form-control"  name="description" id="description"  rows="3">
+                                                <%- blog.description %>
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Content text: </label>
+                                            <textarea class="form-control"  name="content_text" id="content_text"  rows="3">
+                                                <%= blog.content_text %>
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Image: </label>
+
+                                        <div class="form-group organic-form xs-radius">
+                                            <input class="form-control" name="img" id="img" type="text" value="<%= blog.image %>">
+                                            <input type="file" name="img" id="img">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Author: </label>
+                                            <input class="form-control"  name="authorid" id="authorid" value="<%= user %>"  type="text" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group organic-form xs-radius">
+                                            <button class="btn btn-brand pill" type="submit" name="Submit">Update</button>
+                                        </div>
+                                    </div>
+                                    <% })} %>
+                                </form>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+</div>
+<% include ../partials/footer.ejs %>
+
+<!-- Include Editor JS files. -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
+
+<!-- Initialize the editor. -->
+<script>
+    new FroalaEditor('textarea');
+</script>
+
+<script src="/js/library/jquery.min.js"></script>
+<script src="/js/library/bootstrap.min.js"></script>
+<script src="/js/function-check-viewport.js"></script>
+<script src="/js/library/slick.min.js"></script>
+<script src="/js/library/select2.full.min.js"></script>
+<script src="/js/library/imagesloaded.pkgd.min.js"></script>
+<script src="/js/library/jquery.mmenu.all.min.js"></script>
+<script src="/js/library/rellax.min.js"></script>
+<script src="/js/library/isotope.pkgd.min.js"></script>
+<script src="/js/library/bootstrap-notify.min.js"></script>
+<script src="/js/library/bootstrap-slider.js"></script>
+<script src="/js/library/in-view.min.js"></script>
+<script src="/js/library/countUp.js"></script>
+<script src="/js/library/animsition.min.js"></script>
+<script src="/js/global.js"></script>
+<script src="/js/config-mm-menu.js"></script>
+<script src="/js/config-set-bg-blog-thumb.js"></script>
+<script src="/js/config-accrodion.js"></script>
+
+<script >
+    $(document).ready(function() {
+        $("#input-5").fileinput({showCaption: false});
+
+        $("#input-6").fileinput({
+            showUpload: false,
+            maxFileCount: 10,
+            mainClass: "input-group-lg",
+            showCaption: true
+        });
+
+        $("#input-8").fileinput({
+            mainClass: "input-group-md",
+            showUpload: true,
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: "Pick Image",
+            browseIcon: "<i class=\"icon-picture\"></i> ",
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: "<i class=\"icon-trash\"></i> ",
+            uploadClass: "btn btn-info",
+            uploadLabel: "Upload",
+            uploadIcon: "<i class=\"icon-upload\"></i> "
+        });
+
+        $("#input-9").fileinput({
+            previewFileType: "text",
+            allowedFileExtensions: ["txt", "md", "ini", "text"],
+            previewClass: "bg-warning",
+            browseClass: "btn btn-primary",
+            removeClass: "btn btn-secondary",
+            uploadClass: "btn btn-secondary",
+        });
+
+        $("#input-10").fileinput({
+            showUpload: false,
+            layoutTemplates: {
+                main1: "{preview}\n" +
+                "<div class=\'input-group {class}\'>\n" +
+                "   <div class=\'input-group-append\'>\n" +
+                "       {browse}\n" +
+                "       {upload}\n" +
+                "       {remove}\n" +
+                "   </div>\n" +
+                "   {caption}\n" +
+                "</div>"
+            }
+        });
+
+        $("#input-11").fileinput({
+            maxFileCount: 10,
+            allowedFileTypes: ["image", "video"]
+        });
+
+        $("#input-12").fileinput({
+            showPreview: false,
+            allowedFileExtensions: ["zip", "rar", "gz", "tgz"],
+            elErrorContainer: "#errorBlock"
+        });
+    });
+
+</script>
+
+
+</body>
+</html>
+
+
+

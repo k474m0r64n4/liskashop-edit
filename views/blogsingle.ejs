@@ -22,151 +22,74 @@
                 <article class="blog-detail">
                     <h3 class="title-blog-detail"><%= blog.title %></h3>
                     <p class="meta">
-                        <span class="time">Feberuary 05, 2017</span>
-                        <span class="comment">0</span>
-                        <span class="author">By
-                  <a href="#"><%= blog.authorID %></a>
+                        <span class="time"><%= moment(blog.createdOn).format("Do MMM YYYY");%></span>
+                        <span class="comment"><%= coms.length %></span>
+                        <span class="author">By: <a href="#"><%= blog.authorID %></a>
                 </span>
-                        <span class="cate">/
-                  <a href="#">Beauty</a>
-                  <a href="#">, Orchid.</a>
-                </span>
+
                     </p>
                     <div class="content">
                         <img class="feature-image" src="/images/slike/blog/<%= blog.image %>" alt="feature-image">
-                        <p class="sapo"><%= blog.content_text %></p>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h4>1. Avocado</h4>
-                                <img class="img-responsive pull-left" src="images/blog/blog-detail-01.jpg" alt="blog-detail">
-                                <p>Sed nec nisl neque. Duis est odio, mattis non magna vitae, volutpat tempus diam. In convallis orci ut leo pellentesque, ac faucibus est interdum. Nam massa nibh, imperdiet vitae enim sit amet, consectetur rutrum ante. Maecenas blandit
-                                    urna ac leo aliquet placerat sit amet id mi. In eget nulla at libero ornare mattis. Nam eu scelerisque risus. Etiam vitae molestie orci. </p>
-                                <p>Nunc tempor tortor eget massa vehicula, nec consequat dui volutpat. Sed suscipit, arcu sit amet sodales rhoncus, enim urna tempus felis, et placerat libero sem vel mi. Curabitur ac facilisis erat, vel consequat elit. In et viverra
-                                    nisl, eget dignissim tellus. Proin ullamcorper felis venenatis orci egestas, vel congue dolor vehicula. Nulla vitae diam sed lectus convallis venenatis sed et urna. Aliquam erat volutpat. Cras sollicitudin, sapien ut hendrerit varius,
-                                    sapien massa auctor neque, eget convallis ligula ligula et libero. Pellentesque commodo nec tortor at fermentum. Quisque massa augue, faucibus dictum ipsum ac, molestie convallis nulla. Etiam ac pharetra magna. Aenean rutrum gravida
-                                    leo, quis venenatis urna commodo ut. Morbi consequat magna lectus, non euismod sapien hendrerit vel. Integer consequat id enim vitae elementum.</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h4>2. Turmeric</h4>
-                                <img class="img-responsive pull-right" src="images/blog/blog-detail-02.jpg" alt="blog-detail">
-                                <p> Morbi at fermentum risus. Donec id metus sapien. Fusce in felis sapien. Suspendisse urna orci, scelerisque sit amet lobortis ac, pellentesque nec metus. Aliquam erat volutpat. Sed sit amet diam sed justo mattis pretium. </p>Curabitur
-                                molestie odio non ligula tempor consectetur. Donec vitae dui iaculis, rutrum lacus id, convallis libero. Etiam imperdiet diam risus, at placerat nisi volutpat non. Curabitur arcu enim, lobortis sed laoreet vitae, luctus sit amet odio.
-                                Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed condimentum volutpat libero et posuere. Vivamus scelerisque accumsan nunc, a rhoncus libero varius id. Ut semper ornare dui id ullamcorper. Pellentesque ut tortor a
-                                dolor volutpat dignissim. Curabitur sem ipsum, rhoncus eu rhoncus vitae, dictum sit amet mauris.
-                                <p>Sed nec nisl neque. Duis est odio, mattis non magna vitae, volutpat tempus diam. In convallis orci ut leo pellentesque, ac faucibus est interdum. </p>
-                                <div class="widget-social-color">
-                                    <ul>
-                                        <li>
-                                            <a class="facebook" data-toggle="tooltip" title="Facebook" href="http://www.facebook.com/Upperthemes">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="pinterest" data-toggle="tooltip" title="Pinterest" href="http://www.pinterest.com/Upperthemes">
-                                                <i class="fa fa-pinterest"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="twitter" data-toggle="tooltip" title="Twitter" href="http://www.twitter.com/Upperthemes">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="google-plus" data-toggle="tooltip" title="Google Plus" href="https://plus.google.com/Upperthemes">
-                                                <i class="fa fa-google-plus"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="instagram" data-toggle="tooltip" title="Instagram" href="https://instagram.com/Upperthemes">
-                                                <i class="fa fa-instagram"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="post-control">
-                                    <a class="prev-post" href="blog-detail.html">
-                                        <i class="fa fa-angle-left"></i>PREVIOUSE POST
-                                        <h4 class="title-next-post">Soup recipes</h4>
-                                    </a>
-                                    <a class="next-post" href="blog-detail.html">NEXT POST
-                                        <i class="fa fa-angle-right"></i>
-                                        <h4 class="title-next-post">Green Vegetables Are Good For Healthy</h4>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <div style="padding: 20px"><%- blog.content_text %></div>
+
                     </div>
                 </article>
-                <% })}%>
+
+                <% if(coms) { %>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="comment-area">
-                            <h4 class="title-comment">2 Comments</h4>
+                            <h4 class="title-comment"><%= coms.length %> Comments</h4>
                             <ol class="comment-list">
                                 <li>
+                                    <% coms.forEach(function (com) { %>
                                     <div class="the-comment">
                                         <div class="avatar">
-                                            <img class="avatar" alt="avatar" src="images/comment/01.png">
+                                            <img class="avatar" alt="avatar" src="/images/comment/01.png">
                                         </div>
                                         <div class="comment-box">
                                             <div class="comment-author meta">
-                                                <p class="author">Mark Hunt</p>
-                                                <p class="time">15 March 2017</p>
+                                                <p class="author"><%= com.username %></p>
+                                                <p class="time"><%= moment(com.createdOn).format("Do MMM YYYY");%></p>
                                             </div>
                                             <div class="comment-text">
-                                                <p>This is a test … Quisque ligulas ipsum, euismod atras vulputate iltricies etri elit.This is a test … Quisque ligulas ipsum, euismod atras vulputate iltricies etri elit.</p>
-                                                <a class="comment-reply-link" rel="nofollow" href="#">REPLY</a>
+                                                <p style="margin-bottom: 40px"><%= com.comText %></p>
                                             </div>
                                         </div>
                                     </div>
-                                    <ul class="children">
-                                        <li>
-                                            <div class="the-comment">
-                                                <div class="avatar">
-                                                    <img class="avatar" alt="avatar" src="images/comment/02.png">
-                                                </div>
-                                                <div class="comment-box">
-                                                    <div class="comment-author meta">
-                                                        <p class="author">Lori Peters</p>
-                                                        <p class="time">16 March 2017</p>
-                                                    </div>
-                                                    <div class="comment-text">
-                                                        <p>This is a reply test … Class aptent taciti sociosqu ad litora torquent per connubial rostra.</p>
-                                                        <a class="comment-reply-link" rel="nofollow" href="#">REPLY</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    <% }) %>
                                 </li>
                             </ol>
                         </div>
                     </div>
                 </div>
+                <% } %>
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="comment-area-form">
                             <h4 class="title-comment">Leave a Comment</h4>
                             <p>Your email address will not be published.</p>
-                            <form>
+                            <form class="cart" action="/comment/post" method="post" name="form1">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 hidden">
                                         <div class="form-group Orchid-form xs-radius">
-                                            <input class="form-control" type="text" placeholder="Your Name">
+                                            <input class="form-control " type="text" id="bid" name="bid" placeholder="Blog id" value="<%= blog._id %>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group Orchid-form xs-radius">
-                                            <input class="form-control" type="email" placeholder="Your Email">
+                                            <input class="form-control" type="text" id="name" name="name" placeholder="Your Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group Orchid-form xs-radius">
+                                            <input class="form-control" type="email" id="email" name="email" placeholder="Your Email">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group Orchid-form xs-radius">
-                                            <textarea class="form-control" type="text" rows="6" placeholder="Your Comment"></textarea>
+                                            <textarea class="form-control" type="text" id='comText' name="comText" rows="6" placeholder="Your Comment"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -179,6 +102,7 @@
                         </div>
                     </div>
                 </div>
+                <% })}%>
             </div>
         </div>
     </section>

@@ -10,10 +10,7 @@ jQuery(document).ready(function( $ ) {
      "searchfield" : {
      "placeholder" : 'Pretraga'
     },
-    "navbar" : {
-            title : 'Liskina Bašta'
-     "placeholder" : '?'
-    },
+
     "navbar" : {
             title : 'Liskina bašta'
           },
