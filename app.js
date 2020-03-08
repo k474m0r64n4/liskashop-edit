@@ -9,6 +9,8 @@ var session = require('express-session');
 var passport = require('passport');
 var expressMongoDb = require('express-mongo-db');
 var config = require('./config');
+var fileUpload = require('express-fileupload');
+
 
 require('./passport')(passport);
 
@@ -34,6 +36,7 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(fileUpload());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

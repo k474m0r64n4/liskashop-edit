@@ -1,6 +1,3 @@
-var express = require('express');
-var router = express.Router();
-var fileUpload = require('express-fileupload');
 var ObjectId = require('mongodb').ObjectId;
 
 var User = require('../db/User');
@@ -90,7 +87,18 @@ exports.user_update_get = function(req, res) {
 // Handle Author update on POST.
 exports.user_update_post = function(req, res) {
     var user = req.user;
+    var img = { name: req.body.image} ;
 
+
+     if(req.files !== null){
+         img = req.files.img;
+         img.mv("public/images/users/" + img.name, function (err) {
+             if (err)
+                 return res.status(500).send(err);
+         });
+     }
+
+     console.log(img);
 
     var data = {
         firstname: req.body.firstname,
@@ -99,8 +107,11 @@ exports.user_update_post = function(req, res) {
         phone: req.body.phone,
         address: req.body.address,
         city: req.body.city,
-        bio: req.body.bio
+        bio: req.body.bio,
+        image: img.name
     };
+
+
 
     req.db.collection('users').update({"username": user.username}, { $set: data  });
     res.redirect('/profile');
@@ -113,12 +124,7 @@ exports.user_upload = function(req, res) {
 
     var img = req.files.img;
 
-    img.mv("public/images/users/" + img.name, function (err) {
-        if (err)
-            return res.status(500).send(err);
-
-        req.db.collection('users').update({"username": user.username}, { $set: { image: img.name }  });
-        res.redirect('/profile');
-    });
+    console.log(img);
+    res.redirect('/profile');
 
 };

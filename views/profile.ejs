@@ -23,11 +23,12 @@
       <div class="row blog-v reverse">
         <div class="col-md-12">
           <div class="post">
+              <% if(data){%>
+              <% data.forEach(function (p) { %>
             <div class="img-wrapper js-set-bg-blog-thumb">
-              <img src="images/slike/liska.jpg" alt="blog-thumb">
+              <img src="images/users/<%= p.image %>" alt="blog-thumb">
             </div>
-            <% if(data){%>
-            <% data.forEach(function (p) { %>
+
             <div class="desc">
               <h3 class="title-about"><%= p.firstname %> <%= p.lastname %></h3>
               <p class="sapo"><%= p.email %></p>

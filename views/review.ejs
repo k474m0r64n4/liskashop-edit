@@ -21,27 +21,30 @@
     <section class="boxed-sm">
         <div class="container">
             <div class="row blog-v reverse">
-                <div class="col-md-12">
-                    <div class="post">
-                        <div class="img-wrapper js-set-bg-blog-thumb">
-                            <img src="images/slike/liska.jpg" alt="blog-thumb">
-                        </div>
 
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <% if(data){ %>
                         <% data.forEach(function (o) { %>
                         <div class="comment-area-form">
-                            <h4 class="title-comment">Leave a Comment</h4>
+                            <h4 class="title-comment">Ostavite ocenu</h4>
+                            <p>
+                                <% o.items.forEach(function (v) { %>
+                                <%= v.itemname %>,
+                                <% }) %>
+                            </p>
                             <p>Your email address will not be published.</p>
                             <form action="/review/<%= o._id %>" method="post" name="form1">
                                 <div class="row">
 
                                     <div class="col-md-12">
                                         <div class="form-group Orchid-form xs-radius">
-                                            <input class="form-control" type="text" id="rev" name="rev" value="pozitivna" placeholder="Ocena">
+                                            <label>Ocena: </label>
+                                            <select  class="form-control" name="rev" id="rev">
+                                                <option value="pozitivna">Pozitivna</option>
+                                                <option value="neutralna">Neutralna</option>
+                                                <option value="negativna">Negativna</option>
+                                            </select>
                                         </div>
                                     </div>
 

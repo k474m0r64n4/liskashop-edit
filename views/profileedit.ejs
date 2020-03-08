@@ -23,14 +23,19 @@
             <div class="row blog-v reverse">
                 <div class="col-md-12">
                     <div class="post">
-                        <div class="img-wrapper js-set-bg-blog-thumb">
-                            <img src="/images/slike/liska.jpg" alt="blog-thumb">
-                        </div>
-
                         <% if(data){%>
                         <% data.forEach(function (p) { %>
+                        <div class="img-wrapper js-set-bg-blog-thumb">
+                            <img src="/images/users/<%= p.image %>" alt="blog-thumb">
+                        </div>
+
+
                         <div class="desc">
-                            <form  action='/profile/edit' method='post' >
+                            <form ref='uploadForm'
+                                  id='uploadForm'
+                                  action='/profile/edit'
+                                  method='post'
+                                  encType="multipart/form-data">
                                 <div class="col-md-6">
                                     <div class="form-group organic-form xs-radius">
                                         <input class="form-control" name="firstname" id="firstname" value="<%= p.firstname %>" type="text">
@@ -65,6 +70,15 @@
                                 <div class="col-md-12">
                                     <div class="form-group organic-form xs-radius">
                                         <input class="form-control"  name="bio" id="bio" value="<%= p.bio %>"  type="text" >
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Image: </label>
+                                    <div class="form-group organic-form xs-radius">
+                                        <input type="text" name="image" id="image"  value="<%= p.image %>" >
+                                    </div>
+                                    <div class="form-group organic-form xs-radius">
+                                        <input type="file" name="img" id="img">
                                     </div>
                                 </div>
 

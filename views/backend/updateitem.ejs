@@ -13,64 +13,70 @@
 <body class="animsition">
 <div class="shop-layout-3" id="page">
     <% include ../partials/header.ejs %>
-
     <section >
         <div class="container" style="width: 100%">
             <div class="row">
                 <% include ../partials/adminheader.ejs %>
-                <div class="col-md-10">
+                <div class="col-md-8">
                     <div class="container text-left">
                         <div class="row form-contact" style="margin-right: 150px">
                             <div class="row main">
-                                <% if(data) { %>
-                                <% data.forEach(function (item) {   %>
-                                <form action="/admin/update" method="post" name="form1">
-                                    <div class="col-md-6 hidden" >
+                                <% if(data){%>
+                                <% data.forEach(function(item){ %>
+                                <form ref='uploadForm'
+                                      id='uploadForm'
+                                      action='/admin/update'
+                                      method='post'
+                                      encType="multipart/form-data">
+                                    <div class="col-md-6 hidden">
                                         <div class="form-group organic-form xs-radius">
-                                            <label>Name: </label>
-                                            <input class="form-control" name="id" id="id" value="<%= item._id %>" type="text">
+                                            <label>Id: </label>
+                                            <input class="form-control" name="id" id="id" type="text" value="<%= item._id %>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group organic-form xs-radius">
                                             <label>Name: </label>
-                                            <input class="form-control" name="name" id="name" value="<%= item.name %>" type="text">
+                                            <input class="form-control" name="name" id="name" type="text" value="<%= item.name %>">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group organic-form xs-radius">
                                             <label>Amount: </label>
-                                            <input class="form-control" name="amount" id="amount" value="<%= item.amount %>"  type="text">
+                                            <input class="form-control" name="amount" id="amount" type="text" value="<%= item.amount %>">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group organic-form xs-radius">
                                             <label>Price: </label>
-                                            <input class="form-control" name="price" id="price" value="<%= item.price %>"  type="text">
+                                            <input class="form-control" name="price" id="price" type="text" value="<%= item.price %>">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group organic-form xs-radius">
                                             <label>Description: </label>
-                                            <textarea class="form-control"  name="description" id="description" rows="3"><%- item.description %></textarea>
+                                            <textarea class="form-control"  name="description" id="description"  rows="3"><%- item.description %></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group organic-form xs-radius">
                                             <label>Content text: </label>
-                                            <textarea class="form-control"  name="content_text" id="content_text" rows="3"><%- item.content_text %></textarea>
+                                            <textarea class="form-control"  name="content_text" id="content_text"  rows="3">"<%- item.content_text %></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label>Image: </label>
-                                        <div class="form-group organic-form xs-radius">
-                                            <input class="form-control"  name="image" id="image" type="text"  value="<%= item.image %>" >
+                                        <div class="col-md-6 form-group organic-form xs-radius">
+                                            <input type="text" name="image" id="image"  value="<%= item.image %>" >
+                                        </div>
+                                        <div class="col-md-6 form-group organic-form xs-radius">
+                                            <input type="file" name="img" id="img">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label>Gallery: </label>
                                         <div class="form-group organic-form xs-radius">
-                                            <input class="form-control"  name="gallery" id="gallery" type="text" value="<%= item.gallery %>"  >
+                                            <input class="form-control"  name="gallery" id="gallery" type="text" >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -78,9 +84,12 @@
                                             <label>Category: </label>
                                             <select  class="form-control" name="category" id="category">
                                                 <option value="<%= item.category %>"><%= item.category %></option>
-                                                <option value="voće">Voće</option>
-                                                <option value="povrće">Povrće</option>
-                                                <option value="tegle">Tegle</option>
+                                                <option value="voce">Voće</option>
+                                                <option value="povrce">Povrće</option>
+                                                <option value="domaciproizvodi">Domaći proizvodi</option>
+                                                <option value="orasasti">Orašasti plodovi</option>
+                                                <option value="mlekaijaja">Mleka i jaja</option>
+                                                <option value="vinairakije">Vina i Rakije</option>
                                             </select>
 
                                         </div>
@@ -89,7 +98,7 @@
 
                                         <div class="form-group organic-form xs-radius">
                                             <label>Tags: </label>
-                                            <input class="form-control"  name="tags" id="tags"  type="text" value="<%= item.tags %>" >
+                                            <input class="form-control"  name="tags" id="tags"  type="text"  value="<%= item.tags %>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -109,21 +118,25 @@
                                             <input class="form-control"  name="origin" id="origin"  type="text" value="<%= item.origin %>" >
                                         </div>
                                     </div>
+                                    <div class="col-md-6 hidden">
+                                        <div class="form-group organic-form xs-radius">
+                                            <label>Vendor: </label>
+                                            <input class="form-control"  name="vendor" id="vendor" value="<%= user.username %>" type="text" >
+                                        </div>
+                                    </div>
                                     <div class="col-md-12">
                                         <div class="form-group organic-form xs-radius">
-                                            <button class="btn btn-brand pill" type="submit" name="Submit">UPDATE ITEM</button>
+                                            <button class="btn btn-brand pill" type="submit" name="Submit">UPDATE</button>
                                         </div>
                                     </div>
                                 </form>
-                                <% }) }%>
+                                <% })} %>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
     </section>
 </div>
 <% include ../partials/footer.ejs %>
@@ -144,10 +157,73 @@
 <script src="/js/global.js"></script>
 <script src="/js/config-mm-menu.js"></script>
 <script src="/js/config-set-bg-blog-thumb.js"></script>
-<script src="/js/config-accrodion.js">
+<script src="/js/config-accrodion.js"></script>
 
+<script >
+    $(document).ready(function() {
+        $("#input-5").fileinput({showCaption: false});
+
+        $("#input-6").fileinput({
+            showUpload: false,
+            maxFileCount: 10,
+            mainClass: "input-group-lg",
+            showCaption: true
+        });
+
+        $("#input-8").fileinput({
+            mainClass: "input-group-md",
+            showUpload: true,
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: "Pick Image",
+            browseIcon: "<i class=\"icon-picture\"></i> ",
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: "<i class=\"icon-trash\"></i> ",
+            uploadClass: "btn btn-info",
+            uploadLabel: "Upload",
+            uploadIcon: "<i class=\"icon-upload\"></i> "
+        });
+
+        $("#input-9").fileinput({
+            previewFileType: "text",
+            allowedFileExtensions: ["txt", "md", "ini", "text"],
+            previewClass: "bg-warning",
+            browseClass: "btn btn-primary",
+            removeClass: "btn btn-secondary",
+            uploadClass: "btn btn-secondary",
+        });
+
+        $("#input-10").fileinput({
+            showUpload: false,
+            layoutTemplates: {
+                main1: "{preview}\n" +
+                "<div class=\'input-group {class}\'>\n" +
+                "   <div class=\'input-group-append\'>\n" +
+                "       {browse}\n" +
+                "       {upload}\n" +
+                "       {remove}\n" +
+                "   </div>\n" +
+                "   {caption}\n" +
+                "</div>"
+            }
+        });
+
+        $("#input-11").fileinput({
+            maxFileCount: 10,
+            allowedFileTypes: ["image", "video"]
+        });
+
+        $("#input-12").fileinput({
+            showPreview: false,
+            allowedFileExtensions: ["zip", "rar", "gz", "tgz"],
+            elErrorContainer: "#errorBlock"
+        });
+    });
 
 </script>
+
+
 </body>
 </html>
 

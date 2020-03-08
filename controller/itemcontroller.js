@@ -1,6 +1,3 @@
-var express = require('express');
-var router = express.Router();
-var fileUpload = require('express-fileupload');
 var ObjectId = require('mongodb').ObjectId;
 var Item = require('../db/item');
 var User = require('../db/User');
@@ -47,15 +44,15 @@ exports.item_list = function(req, res) {
     var  sort = new Object();
     sort[key] = value;
 
-
+    var and = '';
     if(query.orderby){
-        console.log(query);
         var q = query.orderby.split(' ');
-        var key = q[0];
-        var value = Number(q[1]);
+         key = q[0];
+         value = Number(q[1]);
         sort = new Object();
         sort[key] = value;
-        console.log(sort);
+        and = '&orderby=' + key + '+'+ value;
+
     }
 
     if(query.search){
@@ -64,11 +61,23 @@ exports.item_list = function(req, res) {
 
         var help = {'$regex' : src, '$options' : 'i'};
         find.name = help;
-        console.log(find);
+
+    }
+
+    if(query.page){
+        current = query.page;
+    }
+    var skip = limit * (current-1);
+
+    if(query.$gte || query.$lte){
+        find = new Object();
+        find.price = query;
+        sort = { price:1};
 
     }
 
 
+    console.log(sort);
 
 
     Item.find( find , function(err, result) {
@@ -85,10 +94,11 @@ exports.item_list = function(req, res) {
                     current: current,
                     pages: pages,
                     tags: unique(tag.slice(0,6)),
-                    category: ""
+                    category: "",
+                    and: and
                 })
             }
-    }).limit(limit).sort( sort )
+    }).limit(limit).skip(skip).sort( sort )
 };
 
 // Display detail page for a specific Item. front and back
@@ -103,7 +113,6 @@ exports.item_detail = function(req, res) {
             })
         } else {
             Review.find({ "itemIds": o_id }, function (err, revs) {
-            console.log(revs.length);
             res.render('itemsingle', {
                 title: 'items List',
                 data: result,
@@ -114,28 +123,6 @@ exports.item_detail = function(req, res) {
             });
         }
     })
-};
-
-exports.item_pages = function(req, res) {
-    var current = req.params.p;
-    var limit = 12;
-    var skip = limit * (current-1);
-    var pages = parseInt((count / limit) + 0.9);
-
-        req.db.collection('items').find().limit(limit).skip(skip).sort({"_id": -1}).toArray(function (err, result) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.render('itemlist', {
-                    title: 'items List',
-                    data: result,
-                    user: req.user,
-                    current: current,
-                    tags: unique(tag.slice(0, 6)),
-                    pages: pages
-                })
-            }
-        })
 };
 
 
@@ -313,24 +300,36 @@ exports.item_update_get = function(req, res) {
 // Handle Item update on POST. back
 exports.item_update_post = function(req, res) {
     var o_id = new ObjectId(req.body.id);
+    var img = { name: req.body.image} ;
 
-    req.db.collection('items').update(
-        { "_id": o_id  },
-        { $set : {
-                name: req.body.name,
-                price: req.body.price,
-                amount: req.body.amount,
-                description: req.body.description,
-                content_text:req.body.content_text,
-                image: req.body.image,
-               // gallery: req.body.gallery,
-                category: req.body.category,
-                //tags: req.body.tags,
-                origin: req.body.origin,
-                status:req.body.status
-        } },
-        {multi: true, upsert: true }
-        );
+    var tag = req.body.tags.split(",");
+
+    if(req.files !== null){
+        img = req.files.img;
+        img.mv("public/images/items/" + img.name, function (err) {
+            if (err)
+                return res.status(500).send(err);
+        });
+    }
+
+    var data = {
+        name: req.body.name,
+        price: req.body.price,
+        amount: req.body.amount,
+        description: req.body.description,
+        content_text:req.body.content_text,
+        image: img.name,
+        // gallery: req.body.gallery,
+        category: req.body.category,
+        tags: tag,
+        origin: req.body.origin,
+        status:req.body.status
+    };
+
+    console.log(data);
+
+
+    req.db.collection('items').update({ "_id": o_id  }, { $set : data },{multi: true, upsert: true });
     res.redirect('/admin');
 
 };
@@ -338,14 +337,26 @@ exports.item_update_post = function(req, res) {
 
 // Handle Item update on POST. back
 exports.item_upload_post = function(req, res) {
-     var img = req.files.img;
-    img.mv("public/images/slike/" + img.name, function (err) {
-        if (err)
-            return res.status(500).send(err);
+    var today = new Date();
+    var img = req.files.img;
 
+    var item = {
+        name: req.body.name,
+        price: req.body.price,
+        amount: req.body.amount,
+        description: req.body.description,
+        content_text:req.body.content_text,
+        image: img.name,
+        gallery: req.body.gallery,
+        category: req.body.category,
+        tags: req.body.tags,
+        origin: req.body.origin,
+        status:req.body.status,
+        vendor: req.body.vendor
+    };
+    console.log(item);
 
-    });
-
+    res.redirect('/admin');
 
 };
 

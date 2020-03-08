@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var fileUpload = require('express-fileupload');
 
-router.use(fileUpload());
 
 var itemController = require('../../controller/itemcontroller');
 var ordersController = require('../../controller/ordersController');
@@ -13,7 +11,6 @@ var User = require('../../db/User');
 
 var loggedin = function (req, res, next) {
     if (req.isAuthenticated()) {
-        console.log("jeste ; " + req.user.username);
         next()
     } else {
         res.redirect('/login')

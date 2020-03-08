@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+
 var indexController = require('../controller/indexcontroller');
 var blogController = require('../controller/blogController');
 var itemController = require('../controller/itemcontroller');
@@ -49,7 +50,7 @@ router.post('/comment/post', blogController.comment_post);
 /* Routes for Items */
 router.get('/items/', itemController.item_list);
 router.get('/items/:id', itemController.item_detail);
-router.get('/items/page/:p', itemController.item_pages);
+//router.get('/items/page/:p', itemController.item_pages);
 router.get('/items/category/:cat', itemController.item_category);
 router.get('/items/tag/:tag', itemController.item_tag);
 

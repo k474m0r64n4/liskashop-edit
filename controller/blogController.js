@@ -1,13 +1,8 @@
-var express = require('express');
-var router = express.Router();
 var moment = require('moment');
-var cookieParser = require('cookie-parser');
 var ObjectId = require('mongodb').ObjectId;
 var Blog = require('../db/blogModel');
 var Comment = require('../db/commentModel');
 
-var app = express();
-app.use(cookieParser());
 
 var count = 0;
 Blog.find({}, function (err, res) {
@@ -17,18 +12,22 @@ Blog.find({}, function (err, res) {
 
 // Display list of all Blog.
 module.exports.blog_list = function(req, res) {
+    var query = req.query;
+    var current = 1;
+    if(query.page){
+        current = query.page;
+    }
 
     var user = req.user;
-    var current = 1;
     var limit = 6;
+    var skip = limit * (current-1);
     var pages = parseInt((count / limit) + 0.9);
+
+    console.log(query);
 
     Blog.find( {}, function(err, result) {
         if (err) {
-            res.render('backend/blog', {
-                title: 'Blog List',
-                data: ''
-            })
+            console.log(err);
         } else {
             res.render('bloglist', {
                 title: 'Blog List',
@@ -39,7 +38,7 @@ module.exports.blog_list = function(req, res) {
                 pages: pages,
             })
         }
-    }).limit(limit).sort({"_id": -1})
+    }).limit(limit).skip(skip).sort({"_id": -1})
 
 };
 
@@ -47,19 +46,12 @@ module.exports.blog_list = function(req, res) {
 module.exports.blog_detail = function(req, res) {
     var user = req.user;
     var o_id = new ObjectId(req.params.id);
-
-
-
-
+    
     Blog.find({"_id": o_id}, function(err, result) {
         if (err) {
-            res.render('backend/updateitem', {
-                title: 'item List',
-                data: ''
-            })
+            res.send(err);
         } else {
-            Comment.find({"blogId": o_id}, function (err, ress) {
-                console.log(ress);
+            Comment.find({"blogId": o_id, status:'approuve'}, function (err, ress) {
                 res.render('blogsingle', {
                     title: 'items List',
                     user: user,
@@ -171,11 +163,21 @@ exports.blog_update_get = function(req, res) {
 // Handle blog update on POST. back
 exports.blog_update_post = function(req, res) {
     var o_id = new ObjectId(req.body.id);
+    var img = { name: req.body.image} ;
+
+    if(req.files !== null){
+        img = req.files.img;
+        img.mv("public/images/slike/blog/" + img.name, function (err) {
+            if (err)
+                return res.status(500).send(err);
+        });
+    }
+
     var blog = {
         title: req.body.title,
         description: req.body.description,
         content_text:req.body.content_text,
-        image: req.body.img,
+        image: img.name,
         authorID: req.body.authorid
     };
 
@@ -200,7 +202,6 @@ exports.blog_delete_post = function(req, res) {
 exports.comment_list_get = function(req, res) {
 
     Comment.find({ },function(err, result) {
-        console.log(result);
         res.render('backend/commentlist', {
             title: 'Comment list',
             data: result,

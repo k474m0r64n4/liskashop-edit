@@ -21,6 +21,7 @@
     </section>
     <section class="boxed-sm">
         <div class="container">
+
             <% if(data){%>
             <% data.forEach(function (item) { %>
             <div class="row product-detail">
@@ -106,27 +107,27 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="facebook" data-toggle="tooltip" title="Facebook" href="http://www.facebook.com/Upperthemes">
+                                        <a class="facebook" data-toggle="tooltip" title="Facebook" href="#">
                                             <i class="fa fa-facebook"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="pinterest" data-toggle="tooltip" title="Pinterest" href="http://www.pinterest.com/Upperthemes">
+                                        <a class="pinterest" data-toggle="tooltip" title="Pinterest" href="#">
                                             <i class="fa fa-pinterest"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="twitter" data-toggle="tooltip" title="Twitter" href="http://www.twitter.com/Upperthemes">
+                                        <a class="twitter" data-toggle="tooltip" title="Twitter" href="#">
                                             <i class="fa fa-twitter"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="google-plus" data-toggle="tooltip" title="Google Plus" href="https://plus.google.com/Upperthemes">
+                                        <a class="google-plus" data-toggle="tooltip" title="Google Plus" href="#">
                                             <i class="fa fa-google-plus"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="instagram" data-toggle="tooltip" title="Instagram" href="https://instagram.com/Upperthemes">
+                                        <a class="instagram" data-toggle="tooltip" title="Instagram" href="#">
                                             <i class="fa fa-instagram"></i>
                                         </a>
                                     </li>
@@ -218,8 +219,7 @@
                 </div>
             </div>
             <% })} %>
-        </div>
-        <div class="container">
+
             <div class="relate-product">
                 <div class="heading-wrapper text-center">
                     <h3 class="heading">Ostali proizvodi</h3>
@@ -231,7 +231,7 @@
                         <div class="item">
                             <figure class="item">
                                 <div class="product product-style-1">
-                                    <div class="img-wrapper">
+                                    <div class="img-wrapper-list">
                                         <a href="/items/<%= item._id%>">
                                             <img class="img-responsive" src="/images/items/<%= item.image%>" alt="product thumbnail">
                                         </a>

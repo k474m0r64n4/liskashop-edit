@@ -7,7 +7,7 @@ var itemSchema = new schema({
         type:String
     },
     price: {
-        type: String
+        type: Number
     },
     amount: {
         type: String
