@@ -22,48 +22,6 @@
         <div class="container">
             <div class="row blog-v reverse">
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <% if(data){ %>
-                        <% data.forEach(function (o) { %>
-                        <div class="comment-area-form">
-                            <h4 class="title-comment">Ostavite ocenu</h4>
-                            <p>
-                                <% o.items.forEach(function (v) { %>
-                                <%= v.itemname %>,
-                                <% }) %>
-                            </p>
-                            <p>Your email address will not be published.</p>
-                            <form action="/review/<%= o._id %>" method="post" name="form1">
-                                <div class="row">
-
-                                    <div class="col-md-12">
-                                        <div class="form-group Orchid-form xs-radius">
-                                            <label>Ocena: </label>
-                                            <select  class="form-control" name="rev" id="rev">
-                                                <option value="pozitivna">Pozitivna</option>
-                                                <option value="neutralna">Neutralna</option>
-                                                <option value="negativna">Negativna</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group Orchid-form xs-radius">
-                                            <textarea class="form-control" type="text" id='comment' name="comment" rows="3" placeholder="Your Comment"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <button class="btn btn-brand pill" type="submit">SUBMIT</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <% })} %>
-                    </div>
-                </div>
                 <div class="col-md-12">
 
                     <div class="desc" style="padding-top: 50px;">
@@ -71,33 +29,55 @@
                         <table class="shop_attributes table table-striped table-bordered">
                             <tbody>
                             <tr style='text-align:left; background-color:#CCC'>
-                                <th>Order ID</th>
                                 <th>Items </th>
                                 <th>Total price</th>
-                                <th>Status</th>
-
+                                <th>Ocena</th>
+                                <th>Komentar</th>
                                 <th>Action</th>
                             </tr>
                             <% if(data){ %>
                             <% data.forEach(function (o) { %>
+                            <% o.items.forEach(function (v) { %>
                             <tr>
-                                <td><%= o._id %></td>
                                 <td>
-                                    <% o.items.forEach(function (v) { %>
-                                    <%= v.itemid %>,
-                                    <% }) %>
+                                    <%= v.itemname %>
                                 </td>
                                 <td>
                                     <p><%= o.orderprice %> RSD</p>
                                 </td>
-                                <td><%= o.status %></td>
-
+                                <form action="/review/<%= v.itemid %>" method="post" name="form1">
                                 <td>
-                                    <div style="float:left">
-                                        <a href="/review/<%= o._id %>">Review</a>
+                                    <div class="hidden">
+                                        <input id="orderId" value="<%= o._id %>">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group Orchid-form xs-radius">
+                                            <select  class="form-control" name="rev" id="rev">
+                                                <option value="pozitivna">Pozitivna</option>
+                                                <option value="neutralna">Neutralna</option>
+                                                <option value="negativna">Negativna</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </td>
+                                <td>
+                                    <div class="col-md-12">
+                                        <div class="form-group Orchid-form xs-radius">
+                                            <textarea class="form-control" type="text" id='comment' name="comment" rows="1" placeholder="Your Comment"></textarea>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <button class="btn btn-brand pill" type="submit">SUBMIT</button>
+                                        </div>
+                                    </div>
+                                </td>
+                                </form>
                             </tr>
+                            <% }) %>
                             <% })} %>
 
                             </tbody>

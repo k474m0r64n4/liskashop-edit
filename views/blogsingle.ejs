@@ -14,6 +14,11 @@
 <div class="blog-detail-03" id="page">
 
     <% include partials/header.ejs %>
+    <section class="sub-header shop-layout-1">
+        <img class="rellax bg-overlay" src="/images/slike/shoppozadina.jpg" alt="">
+        <div class="overlay-call-to-action"></div>
+        <h3 class="heading-style-3">Blog</h3>
+    </section>
     <section class="boxed-sm">
         <div class="container">
             <div class="row main">
@@ -24,28 +29,30 @@
                     <p class="meta">
                         <span class="time"><%= moment(blog.createdOn).format("Do MMM YYYY");%></span>
                         <span class="comment"><%= coms.length %></span>
-                        <span class="author">By: <a href="#"><%= blog.authorID %></a>
+                        <span class="author">Autor: <a href="#"><%= blog.authorID %></a>
                 </span>
 
                     </p>
                     <div class="content">
-                        <img class="feature-image" src="/images/slike/blog/<%= blog.image %>" alt="feature-image">
+                        <img class="feature-image" src="/images/blog/<%= blog.image %>" alt="feature-image">
                         <div style="padding: 20px"><%- blog.content_text %></div>
 
                     </div>
                 </article>
 
-                <% if(coms) { %>
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="comment-area">
-                            <h4 class="title-comment"><%= coms.length %> Comments</h4>
+                            <h4 class="title-comment"><%= coms.length %> Komentar</h4>
+
                             <ol class="comment-list" style="background-color: #f5cda8;">
+                                <% if(coms.length > 0) { %>
                                 <li>
                                     <% coms.forEach(function (com) { %>
                                     <div class="the-comment">
                                         <div class="avatar">
-                                            <img class="avatar" alt="avatar" src="/images/comment/01.png">
+                                            <img class="avatar" alt="avatar" src="/images/comment/<%= com.username.slice(0,1) %>.png">
                                         </div>
                                         <div class="comment-box">
                                             <div class="comment-author meta">
@@ -59,17 +66,23 @@
                                     </div>
                                     <% }) %>
                                 </li>
+
+                                <% } else{ %>
+                                <p>Trenutno nema komentara</p>
+                                <% } %>
                             </ol>
+
                         </div>
                     </div>
                 </div>
-                <% } %>
+
+
 
                 <div class="row">
                     <div class="col-md-12">
                         <div class="comment-area-form">
-                            <h4 class="title-comment">Leave a Comment</h4>
-                            <p>Your email address will not be published.</p>
+                            <h4 class="title-comment">Ostavite Komentar</h4>
+                            <p>Vaša email adresa neće biti objavljena.</p>
                             <form class="cart" action="/comment/post" method="post" name="form1">
                                 <div class="row">
                                     <div class="col-md-6 hidden">
@@ -79,22 +92,22 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group Orchid-form xs-radius">
-                                            <input class="form-control" type="text" id="name" name="name" placeholder="Your Name">
+                                            <input class="form-control" type="text" id="name" name="name" placeholder="Vaše Ime">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group Orchid-form xs-radius">
-                                            <input class="form-control" type="email" id="email" name="email" placeholder="Your Email">
+                                            <input class="form-control" type="email" id="email" name="email" placeholder="Vaš email">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group Orchid-form xs-radius">
-                                            <textarea class="form-control" type="text" id='comText' name="comText" rows="6" placeholder="Your Comment"></textarea>
+                                            <textarea class="form-control" type="text" id='comText' name="comText" rows="6" placeholder="Vaš komentar"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <button class="btn btn-brand pill" type="submit">SUBMIT</button>
+                                            <button class="btn btn-brand pill" type="submit">Pošalji</button>
                                         </div>
                                     </div>
                                 </div>

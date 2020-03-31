@@ -3,31 +3,29 @@ var ObjectId = require('mongodb').ObjectId;
 var Blog = require('../db/blogModel');
 var Comment = require('../db/commentModel');
 
-
-var count = 0;
-Blog.find({}, function (err, res) {
-    count = res.length;
-});
-
-
-// Display list of all Blog.
+// Front
+// Display list of all Blogs.
 module.exports.blog_list = function(req, res) {
     var query = req.query;
     var current = 1;
+    var count = 0;
+    var user = req.user;
+    var limit = 6;
+    var pages = 1;
+    // Page Query
     if(query.page){
         current = query.page;
     }
-
-    var user = req.user;
-    var limit = 6;
     var skip = limit * (current-1);
-    var pages = parseInt((count / limit) + 0.9);
-
-    console.log(query);
-
+    // Count Blogs
+    Blog.find({}, function (err, res) {
+        count = res.length;
+        pages = parseInt((count / limit) + 0.9);
+    });
+    // Find Blogs
     Blog.find( {}, function(err, result) {
         if (err) {
-            console.log(err);
+            res.send(err);
         } else {
             res.render('bloglist', {
                 title: 'Blog List',
@@ -39,14 +37,13 @@ module.exports.blog_list = function(req, res) {
             })
         }
     }).limit(limit).skip(skip).sort({"_id": -1})
-
 };
 
-// Display detail page for a specific Blog.
+// Display detail Blog page
 module.exports.blog_detail = function(req, res) {
     var user = req.user;
     var o_id = new ObjectId(req.params.id);
-    
+    // Find Blog
     Blog.find({"_id": o_id}, function(err, result) {
         if (err) {
             res.send(err);
@@ -65,6 +62,7 @@ module.exports.blog_detail = function(req, res) {
 
 };
 
+// Admin Panel
 // Display detail page for a specific Blog.
 module.exports.blog_list_get = function(req, res) {
     var user = req.user.username;
@@ -76,7 +74,6 @@ module.exports.blog_list_get = function(req, res) {
             user: req.user
         })
     });
-
 };
 
 // Display detail page for a specific Blog.
@@ -116,7 +113,7 @@ exports.blog_create_post = function(req, res) {
             if (doc) {
                 res.status(500).send('Blog already exists')
             } else {
-                img.mv("public/images/slike/blog/" + img.name, function (err) {
+                img.mv("public/images/blog/" + img.name, function (err) {
                     if (err)
                         return res.status(500).send(err);
 
@@ -246,24 +243,6 @@ exports.comment_post = function(req, res) {
             res.redirect('/blog/' + com.blogId)
         }
     });
-
-
-};
-
-
-
-
-// Handle Item update on POST. back
-exports.blog_upload_post = function(req, res) {
-    var img = req.files.img;
-    console.log("jooj ;" + img);
-    img.mv("public/images/users/" + img.name, function (err) {
-        if (err)
-            return res.status(500).send(err);
-
-
-    });
-
 
 
 };

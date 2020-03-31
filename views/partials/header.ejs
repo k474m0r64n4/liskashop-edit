@@ -11,13 +11,19 @@
         </li>
 
         <li>
-            <a href="/profil">Profile</a>
+            <a href="/profile">Profile</a>
         </li>
         <li>
             <a href="/about">O Nama</a>
         </li>
         <li>
             <a href="/contact">Kontakt</a>
+        </li>
+        <li>
+            <a href="/cart">Korpa</a>
+        </li>
+        <li>
+            <a href="/logout">logout</a>
         </li>
 
     </ul>
@@ -65,19 +71,42 @@
 
                 </li>
                 <li>
-                    <a href="/admin">(admin)Kontakt</a>
+                    <a href="/contact">Kontakt</a>
                 </li>
+
 
             </ul>
         </nav>
         <aside class="right">
             <% if(user) { %>
-            <div class="widget widget-control-header">
+            <div class="menu hidden-xs">
+                <li>
+                    <a class="control" href="/profile">
+                        <p class="counter"><%= user.username %></p>
+                    </a>
+                    <ul>
+
+                        <li>
+                            <a class="control" href="/profile">Profil</a>
+                        </li>
+                        <li>
+                            <a href="/cart">Korpa </a>
+                        </li>
+                        <li>
+                            <a href="/logout">Logout</a>
+                        </li>
+                        <% if(user.role === 'admin' || user.role === 'vendor' ) { %>
+                        <li>
+                            <a href="/admin">Admin panel</a>
+                        </li>
+                        <% } %>
+                    </ul>
+                </li>
+
+            </div>
+            <div class="widget widget-control-header visible-xs">
                 <a class="control" href="/profile">
                     <p class="counter"><%= user.username %></p>
-                </a>
-                <a class="control" href="/logout">
-                    <p class="counter">Logout</p>
                 </a>
             </div>
             <% } else { %>
@@ -86,14 +115,10 @@
                     <p class="counter">Login</p>
                 </a>
             </div>
+
             <% } %>
 
-            <div class="widget widget-control-header widget-shop-cart js-widget-shop-cart">
-                <a class="control" href="/cart">
-                    <p class="counter">2</p>
-                    <span class="lnr lnr-bag"></span>
-                </a>
-            </div>
+
             <div class="widget widget-control-header hidden-lg hidden-md hidden-sm">
                 <a class="navbar-toggle js-offcanvas-has-events" type="button" href="#menu">
                     <span class="icon-bar"></span>

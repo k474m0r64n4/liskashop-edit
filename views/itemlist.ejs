@@ -104,49 +104,29 @@
                         </div>
                     </div>
                     <div class="col-md-9">
-
-                        <div class="row product-grid-equal-height-wrapper product-equal-height-3-columns flex multi-row">
+                        <div class="row blog-h flex multi-row wrapper" >
                             <% if(data){ %>
                             <% data.forEach(function (item) {  %>
-                            <figure class="item">
-                                <div class="product product-style-1">
-                                    <div class="img-wrapper-list">
+                            <div class="col-md-4" style="padding-top: 25px">
+                                <div class="post">
+                                    <div class="img-wrapper js-set-bg-blog-thumb" style="height: 75%">
                                         <a href="/items/<%= item._id %>">
-                                            <img class="img-responsive" src="/images/items/<%= item.image %>" alt="product thumbnail" />
+                                            <img src="/images/items/<%= item.image %>" alt="Image" />
                                         </a>
-                                        <div class="product-control-wrapper bottom-right">
-                                            <div class="wrapper-control-item">
-                                                <a class="js-quick-view" href="#" type="button" data-toggle="modal" data-target="#quick-view-product-<%= item._id %>">
-                                                    <span class="lnr lnr-eye"></span>
-                                                </a>
-                                            </div>
-                                            <form action="/addtocart" method="post" name="form1">
-                                                <div class="hidden">
-                                                    <input class="form-control" name="qty" id="qty" value="1" type="number">
-                                                    <input class="form-control disabled" name="itemid" id="itemid" value="<%= item._id %>" type="text"  >
-                                                    <input class="form-control disabled" name="itemname" id="itemname" value="<%= item.name %>" type="text"  >
-                                                    <input class="form-control disabled" name="itemamount" id="itemamount" value="<%= item.amount %>" type="text"  >
-                                                </div>
-                                                <div class="wrapper-control-item item-add-cart ">
-                                                    <button type="submit" name="Submit" href="#">
-                                                        <span class="lnr lnr-cart"></span>
-                                                    </button>
-
-                                                </div>
-                                            </form>
-                                        </div>
                                     </div>
-                                    <figcaption class="desc text-center">
+                                    <div class="desc text-center" style="height: 40%">
                                         <h3>
                                             <a class="product-name" href="/items/<%= item._id %>"><%= item.name %></a>
                                         </h3>
                                         <span class="price"><%= item.price %> RSD</span>
-                                    </figcaption>
+                                    </div>
                                 </div>
-                            </figure>
+                            </div>
                             <% })} %>
 
                         </div>
+
+
                         <div class="row">
                             <div class="col-md-12 text-center">
                                 <nav>
@@ -179,108 +159,10 @@
             </div>
         </div>
     </section>
+
+
 </div>
 <% include partials/footer.ejs%>
-<% if(data) { %>
-<% data.forEach(function (item) { %>
-<div class="modal fade" id="quick-view-product-<%= item._id%>" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg modal-quickview woocommerce" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="woocommerce-product-gallery">
-                            <div class="main-carousel-product-quick-view">
-                                <div class="item">
-                                    <img class="img-responsive" src="/images/slike/<%= item.image %>" alt="product thumbnail">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="summary">
-                            <div class="desc">
-                                <div class="header-desc">
-                                    <h2 class="product-title"><%= item.name %></h2>
-                                    <p class="price"><%= item.amount %> - <%= item.price %> RSD</p>
-                                </div>
-                                <div class="body-desc">
-                                    <div class="woocommerce-product-details-short-description">
-                                        <p><%= item.description %></p>
-                                    </div>
-                                </div>
-                                <div class="footer-desc">
-                                    <form class="cart" action="/addtocart" method="post" name="form1">
-                                        <div class="quantity buttons-added">
-                                            <input class="minus" value="-" type="button" id="minus" />
-                                            <input class="input-text qty text" step="1" min="1" max=""  name="qty" id="qty" value="1" title="Qty" size="4" type="number" />
-                                            <input class="plus" value="+" type="button" id="plus" />
-                                        </div>
-                                        <div class="hidden">
-                                            <input class="form-control disabled" name="itemid" id="itemid" value="<%= item._id %>" type="text"  >
-                                            <input class="form-control disabled" name="itemname" id="itemname" value="<%= item.name %>" type="text"  >
-                                            <input class="form-control disabled" name="itemamount" id="itemamount" value="<%= item.amount %>" type="text"  >
-
-                                        </div>
-                                        <div class="group-btn-control-wrapper">
-                                            <button class="btn btn-brand no-radius" type="submit" name="Submit">DODAJ U KORPU</button>
-
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="product-meta">
-                                <p class="posted-in">Kategorija:
-                                    <a href="/items/category/<%= item.category %>" rel="tag"><%= item.category %></a>
-                                </p>
-                                <p class="tagged-as">Tagovi:
-                                    <% if(item.tags) { %>
-                                    <% item.tags.forEach(function (t) {  %>
-                                    <a href="/items/tag/<%= t %>" rel="tag"><%= t %></a>,
-                                    <% })}%>
-                                </p>
-                            </div>
-                            <div class="widget-social align-left">
-                                <ul>
-                                    <li>
-                                        <a class="facebook" data-toggle="tooltip" title="Facebook" href="http://www.facebook.com/Upperthemes">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="pinterest" data-toggle="tooltip" title="Pinterest" href="http://www.pinterest.com/Upperthemes">
-                                            <i class="fa fa-pinterest"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="twitter" data-toggle="tooltip" title="Twitter" href="http://www.twitter.com/Upperthemes">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="google-plus" data-toggle="tooltip" title="Google Plus" href="https://plus.google.com/Upperthemes">
-                                            <i class="fa fa-google-plus"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="instagram" data-toggle="tooltip" title="Instagram" href="https://instagram.com/Upperthemes">
-                                            <i class="fa fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<% })} %><% include partials/footerscripts.ejs %>
+<% include partials/footerscripts.ejs %>
 </body>
 </html>

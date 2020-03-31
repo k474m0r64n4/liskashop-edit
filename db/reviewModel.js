@@ -6,8 +6,8 @@ var reviewSchema = new schema({
     orderId: {
         type: String
     },
-    itemIds: {
-        type: Array
+    itemId: {
+        type: String
     },
     username: {
         type: String

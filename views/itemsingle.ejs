@@ -150,7 +150,7 @@
                                         <a href="#Additional-Information" aria-controls="Additional-Information" role="tab" data-toggle="tab">Dodatne informacije</a>
                                     </li>
                                     <li role="presentation">
-                                        <a href="#Review" aria-controls="Review" role="tab" data-toggle="tab">Ocene (2)</a>
+                                        <a href="#Review" aria-controls="Review" role="tab" data-toggle="tab">Ocene (<%= revs.length %>)</a>
                                     </li>
                                 </ul>
                             </div>
@@ -197,7 +197,7 @@
                                             </div>
                                             <div class="comment-box">
                                                 <div class="comment-author meta">
-                                                    <p class="author"><%= r.username %></p>
+                                                    <p class="author"><%= r.username %> <%= r.image %></p>
                                                     <p class="time"><%= r.rev %></p>
                                                 </div>
                                                 <div class="comment-text">
@@ -235,27 +235,6 @@
                                         <a href="/items/<%= item._id%>">
                                             <img class="img-responsive" src="/images/items/<%= item.image%>" alt="product thumbnail">
                                         </a>
-                                        <div class="product-control-wrapper bottom-right">
-                                            <div class="wrapper-control-item">
-                                                <a class="js-quick-view" href="#" type="button" data-toggle="modal" data-target="#quick-view-product-<%= item._id %>">
-                                                    <span class="lnr lnr-eye"></span>
-                                                </a>
-                                            </div>
-                                            <form action="/addtocart" method="post" name="form1">
-                                                <div class="hidden">
-                                                    <input class="form-control" name="qty" id="qty" value="1" type="number">
-                                                    <input class="form-control disabled" name="itemid" id="itemid" value="<%= item._id %>" type="text"  >
-                                                    <input class="form-control disabled" name="itemname" id="itemname" value="<%= item.name %>" type="text"  >
-                                                    <input class="form-control disabled" name="itemamount" id="itemamount" value="<%= item.amount %>" type="text"  >
-                                                </div>
-                                                <div class="wrapper-control-item item-add-cart ">
-                                                    <button type="submit" name="Submit" href="#">
-                                                        <span class="lnr lnr-cart"></span>
-                                                    </button>
-
-                                                </div>
-                                            </form>
-                                        </div>
                                     </div>
                                     <figcaption class="desc text-center">
                                         <h3>
@@ -275,109 +254,7 @@
     </section>
 </div>
 <% include partials/footer.ejs %>
-<% if(data2) { %>
-<% data2.forEach(function (item) { %>
-<div class="modal fade" id="quick-view-product-<%= item._id%>" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg modal-quickview woocommerce" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="woocommerce-product-gallery">
-                            <div class="main-carousel-product-quick-view">
-                                <div class="item">
-                                    <img class="img-responsive" src="/images/slike/<%= item.image %>" alt="product thumbnail">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="summary">
-                            <div class="desc">
-                                <div class="header-desc">
-                                    <h2 class="product-title"><%= item.name %></h2>
-                                    <p class="price"><%= item.amount %> - <%= item.price %> RSD</p>
-                                </div>
-                                <div class="body-desc">
-                                    <div class="woocommerce-product-details-short-description">
-                                        <p><%= item.description %></p>
-                                    </div>
-                                </div>
-                                <div class="footer-desc">
-                                    <form class="cart" action="/addtocart" method="post" name="form1">
-                                        <div class="col-md-4">
-                                            <div class="form-group organic-form xs-radius">
-                                                <input class="form-control" name="qty" id="qty" value="1" type="number">
-                                            </div>
-                                            <div class="hidden">
-                                                <input class="form-control disabled" name="itemid" id="itemid" value="<%= item._id %>" type="text"  >
-                                                <input class="form-control disabled" name="itemname" id="itemname" value="<%= item.name %>" type="text"  >
-                                                <input class="form-control disabled" name="itemamount" id="itemamount" value="<%= item.amount %>" type="text"  >
 
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="group-btn-control-wrapper">
-                                                <button class="btn btn-brand no-radius" type="submit" name="Submit">DODAJ U KORPU</button>
-
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="product-meta">
-                                    <p class="posted-in">Kategorija:
-                                        <a href="/items/category/<%= item.category %>" rel="tag"><%= item.category %></a>
-                                    </p>
-                                <p class="tagged-as">Tagovi:
-                                    <% if(item.tags) { %>
-                                    <% item.tags.forEach(function (t) {  %>
-                                    <a href="/items/tag/<%= t %>" rel="tag"><%= t %></a>,
-                                    <% })}%>
-                                </p>
-                            </div>
-                            <div class="widget-social align-left">
-                                <ul>
-                                    <li>
-                                        <a class="facebook" data-toggle="tooltip" title="Facebook" href="http://www.facebook.com/Upperthemes">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="pinterest" data-toggle="tooltip" title="Pinterest" href="http://www.pinterest.com/Upperthemes">
-                                            <i class="fa fa-pinterest"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="twitter" data-toggle="tooltip" title="Twitter" href="http://www.twitter.com/Upperthemes">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="google-plus" data-toggle="tooltip" title="Google Plus" href="https://plus.google.com/Upperthemes">
-                                            <i class="fa fa-google-plus"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="instagram" data-toggle="tooltip" title="Instagram" href="https://instagram.com/Upperthemes">
-                                            <i class="fa fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<% })} %>
 <script src="/js/library/jquery.min.js"></script>
 <script src="/js/library/bootstrap.min.js"></script>
 <script src="/js/function-check-viewport.js"></script>

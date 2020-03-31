@@ -98,7 +98,6 @@ exports.user_update_post = function(req, res) {
          });
      }
 
-     console.log(img);
 
     var data = {
         firstname: req.body.firstname,
@@ -118,13 +117,3 @@ exports.user_update_post = function(req, res) {
 };
 
 
-// Handle Author update on POST.
-exports.user_upload = function(req, res) {
-    var user = req.user;
-
-    var img = req.files.img;
-
-    console.log(img);
-    res.redirect('/profile');
-
-};

@@ -4,88 +4,78 @@ var User = require('../db/User');
 var Review = require('../db/reviewModel');
 var unique = require('array-unique');
 
-var tag = [];
-var count = 0;
-var otheritms = [];
-var category = [];
-
-Item.aggregate([{$sample: {size: 4}}], function (err, ress) {
-    otheritms = ress;
-});
-
-
-
-Item.find({  },{ tags: 1, _id: 0 }, function (err, result) {
-    result.forEach(function (t) {
-        t.tags.forEach(function (xxx) {
-            tag.push(xxx);
-        });
-    });
-});
-Item.find({}, function(err, result) {
-    count = result.length;
-});
-
-
-
-// Display list of all Items. front and back
+// Front
+// List of all Items
 exports.item_list = function(req, res) {
-
+    var cat = req.params.cat;
+    var t = req.params.tag;
+    var tag = [];
+    var count = 0;
+    var pages = 1;
     var user = req.user;
     var current = 1;
     var limit = 12;
-    var pages = parseInt((count / limit) + 0.9);
     var query = req.query;
     var key = "_id";
     var value = -1;
     var src;
+
     var find = {};
-
-    var  sort = new Object();
+    var  sort = {};
     sort[key] = value;
-
     var and = '';
+
+    // Order by Query
     if(query.orderby){
         var q = query.orderby.split(' ');
          key = q[0];
          value = Number(q[1]);
-        sort = new Object();
         sort[key] = value;
         and = '&orderby=' + key + '+'+ value;
 
     }
-
+    // Search Query
     if(query.search){
-        find = new Object();
-        src =  query.search   ;
-
+        src =  query.search;
         var help = {'$regex' : src, '$options' : 'i'};
         find.name = help;
-
     }
-
+    // Page Query
     if(query.page){
         current = query.page;
     }
     var skip = limit * (current-1);
-
+    // Query
     if(query.$gte || query.$lte){
-        find = new Object();
         find.price = query;
         sort = { price:1};
 
     }
+    // Category Query
+    if(cat){
+        find.category = cat;
+    }
+    // Tag Query
+    if(t){
+        find.tags = t;
+    }
+    Item.find({  },{ tags: 1, _id: 0 }, function (err, result) {
+        result.forEach(function (t) {
+            t.tags.forEach(function (xxx) {
+                tag.push(xxx);
+            });
+        });
+    });
+    // Count pages for Items
+    Item.find(find, function(err, result) {
+        count = result.length;
+        pages = parseInt((count / limit) + 0.9);
+    });
 
-
-    console.log(sort);
-
-
+    // Find Items
     Item.find( find , function(err, result) {
         if (err) {
-            res.render('backend/items', {
-                title: 'item List',
-                data: ''
-            })
+            res.send(err)
         } else {
                 res.render('itemlist', {
                     title: 'items List',
@@ -94,81 +84,64 @@ exports.item_list = function(req, res) {
                     current: current,
                     pages: pages,
                     tags: unique(tag.slice(0,6)),
-                    category: "",
                     and: and
                 })
             }
     }).limit(limit).skip(skip).sort( sort )
 };
 
-// Display detail page for a specific Item. front and back
+// Display detail page for Item
 exports.item_detail = function(req, res) {
     var o_id = new ObjectId(req.params.id);
+    var otheritms = [];
 
+    // 4 Random Items
+    Item.aggregate([{$sample: {size: 4}}], function (err, ress) {
+        otheritms = ress;
+    });
+    // Find Item
     Item.find({"_id": o_id}, function(err, result) {
         if (err) {
-            res.render('backend/updateitem', {
-                title: 'item List',
-                data: ''
-            })
+            res.send(err)
         } else {
-            Review.find({ "itemIds": o_id }, function (err, revs) {
-            res.render('itemsingle', {
-                title: 'items List',
-                data: result,
-                user: req.user,
-                revs: revs,
-                data2: otheritms
-            })
+            Review.find({ "itemId": o_id }, function (err, revs) {
+                var img = "";
+
+                revs.forEach(function (r) {
+                    User.find({ username: r.username }, function (err, user) {
+                       img = user[0].image;
+
+
+                    });
+                    r.image = "jjj";
+
+
+                });
+
+                console.log(revs);
+
+
+
+
+
+                res.render('itemsingle', {
+                    title: 'items List',
+                    data: result,
+                    user: req.user,
+                    revs: revs,
+                    data2: otheritms
+                })
             });
         }
     })
 };
 
-
-
-// Display list of items for a specific category
-exports.item_category = function(req, res) {
-    var cat = req.params.cat;
-
-        req.db.collection('items').find({category: cat}).sort({"_id": -1}).toArray(function (err, result) {
-                if (err) {
-                    console.log(err);
-                } else  {
-                        res.render('itemlist', {
-                            title: 'items List',
-                            data: result,
-                            user: req.user,
-                            tags: unique(tag.slice(0, 6)),
-                            current: 1,
-                            pages: 0
-                        })
-                    }
-            })
-};
-
-// Display list of items for a specific category
-exports.item_tag = function(req, res) {
-    var t = req.params.tag;
-
-        req.db.collection('items').find({tags: t}).sort({"_id": -1}).toArray(function (err, result) {
-            res.render('itemlist', {
-                title: 'items List',
-                data: result,
-                user: req.user,
-                tags: unique(tag.slice(0, 6)),
-                current: 1,
-                pages: 0
-            })
-        });
-};
-
-// Display detail page for a specific Author.
+// Display Vendor page
 exports.vendor_detail = function(req, res) {
     var name = req.params.name;
     User.find({"username": name}, function(err, result) {
         if (err) {
-            console.log(err);
+            res.send(err)
         } else  {
             Item.find({vendor:name}, function (err, itm) {
                 res.render('vendor', {
@@ -176,14 +149,13 @@ exports.vendor_detail = function(req, res) {
                     user: req.user,
                     data: result,
                     items: itm
-
                 })
-
             });
         }
     })
 };
 
+// Admin panel
 // Display Item update form on GET. back
 exports.item_list_get = function(req, res) {
     Item.find( {}, function(err, result) {
@@ -326,7 +298,6 @@ exports.item_update_post = function(req, res) {
         status:req.body.status
     };
 
-    console.log(data);
 
 
     req.db.collection('items').update({ "_id": o_id  }, { $set : data },{multi: true, upsert: true });
@@ -334,30 +305,5 @@ exports.item_update_post = function(req, res) {
 
 };
 
-
-// Handle Item update on POST. back
-exports.item_upload_post = function(req, res) {
-    var today = new Date();
-    var img = req.files.img;
-
-    var item = {
-        name: req.body.name,
-        price: req.body.price,
-        amount: req.body.amount,
-        description: req.body.description,
-        content_text:req.body.content_text,
-        image: img.name,
-        gallery: req.body.gallery,
-        category: req.body.category,
-        tags: req.body.tags,
-        origin: req.body.origin,
-        status:req.body.status,
-        vendor: req.body.vendor
-    };
-    console.log(item);
-
-    res.redirect('/admin');
-
-};
 
 

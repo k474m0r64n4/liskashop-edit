@@ -81,7 +81,8 @@ exports.addToCart = function(req, res) {
                                 itemname: itm[0].name,
                                 itemprice: itm[0].price,
                                 itemamount: itm[0].amount,
-                                qty: qty
+                                qty: qty,
+
 
 
                                 } }
@@ -99,7 +100,8 @@ exports.addToCart = function(req, res) {
                         itemname: itm[0].name,
                         itemprice: itm[0].price,
                         itemamount: itm[0].amount,
-                        qty: qty
+                        qty: qty,
+                        reviewed:false
                     }];
                     rec.status = "open";
                     rec.orderprice = itm[0].price * qty;
@@ -128,7 +130,6 @@ exports.review_get = function(req, res) {
         res.render('review', {
             title: 'Review',
             data: result,
-            items: "hello",
             user: user
         })
     } );
@@ -138,26 +139,23 @@ exports.review_post = function(req, res) {
     var today = new Date();
     var user = req.user;
     var o_id = new ObjectId(req.params.id);
-    var itemIds = [];
+
 
     var rev = {
+        orderId: req.body.orderId,
         rev: req.body.rev,
         comment:req.body.comment,
     };
 
-    Orders.find({"_id": o_id}, function (err, result) {
-        var xxx = result[0].items;
-        xxx.forEach(function (x) {
-            itemIds.push(x.itemid);
 
-        });
-
-        req.db.collection('orders').update({"_id": o_id},{ $set: { status: "reviewed"}});
+        req.db.collection('orders').update({"username": user.username, "items.itemid": req.params.id},{ $set : {
+                "items.$.reviewed" : true
+            } });
 
 
     var record = new Review();
-    record.orderId = o_id;
-    record.itemIds = itemIds;
+    record.orderId = rev.orderId;
+    record.itemId = o_id;
     record.username = user.username;
     record.rev = rev.rev;
     record.comment = rev.comment;
@@ -171,7 +169,7 @@ exports.review_post = function(req, res) {
             res.redirect('/profile' )
         }
     });
-    });
+
 
 };
 

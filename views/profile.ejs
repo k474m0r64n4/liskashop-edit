@@ -31,11 +31,12 @@
 
             <div class="desc">
               <h3 class="title-about"><%= p.firstname %> <%= p.lastname %></h3>
-              <p class="sapo"><%= p.email %></p>
-              <p class="sapo"><%= p.phone %></p>
-              <p class="sapo"><%= p.address %></p>
-              <p class="sapo"><%= p.city %></p>
-              <p class="sapo"><%= p.role %></p>
+              <p class="sapo">Email: <%= p.email %></p>
+              <p class="sapo">Telefon: <%= p.phone %></p>
+              <p class="sapo">Adresa: <%= p.address %></p>
+              <p class="sapo">Grad: <%= p.city %></p>
+              <p class="sapo">Biografija: <%= p.bio %></p>
+              <p class="sapo">Rola: <%= p.role %></p>
               <div class="proceed-to-checkout">
                 <a class="btn btn-brand pill" href="/profile/<%= p._id %>">EDIT PROFILE</a>
               </div>
@@ -46,16 +47,15 @@
         <div class="col-md-12">
 
             <div class="desc" style="padding-top: 50px;">
-              <h3 class="title-about">My orders: </h3>
+              <h3 class="title-about">Porudžbine: </h3>
               <table class="shop_attributes table table-striped table-bordered">
                 <tbody>
                 <tr style='text-align:left; background-color:#CCC'>
-                  <th>Order ID</th>
-                  <th>Items </th>
-                  <th>Total price</th>
+                  <th>ID</th>
+                  <th>Proizvodi </th>
+                  <th>Ukupna cena</th>
                   <th>Status</th>
-
-                  <th>Action</th>
+                  <th>Akcije</th>
                 </tr>
 
                 <% if(orders){ %>

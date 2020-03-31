@@ -13,8 +13,12 @@
 <body class="animsition">
 <div class="shop-layout-3" id="page">
     <% include partials/header.ejs %>
-
-    <section class="boxed-sm">
+    <section class="sub-header shop-layout-1">
+        <img class="rellax bg-overlay" src="/images/slike/shoppozadina.jpg" alt="">
+        <div class="overlay-call-to-action"></div>
+        <h3 class="heading-style-3">Blog</h3>
+    </section>
+    <section class="boxed-sm" style="padding-top: 50px">
         <div class="container">
             <div class="row">
                 <div class="row main">
@@ -26,7 +30,7 @@
                                 <div class="post">
                                     <div class="img-wrapper js-set-bg-blog-thumb">
                                         <a href="/blog/<%= blog._id %>">
-                                            <img src="/images/slike/blog/<%= blog.image %>" alt="Image" />
+                                            <img src="/images/blog/<%= blog.image %>" alt="Image" />
                                         </a>
                                     </div>
                                     <div class="desc">
@@ -34,8 +38,9 @@
                                             <a href="/blog/<%= blog._id %>"><%= blog.title %></a>
                                         </h4>
                                         <p class="meta">
-                                            <span class="time"><%= moment(blog.createdOn).format("Do MMM YYYY");%></span>
-                                            <span class="comment">2</span>
+                                            <span class="author "><%= blog.authorID %></span>
+
+                                            <span class="time pull-right" ><%= moment(blog.createdOn).format("Do MMM YY");%></span>
                                         </p>
                                         <p><%- blog.description %> </p>
                                     </div>

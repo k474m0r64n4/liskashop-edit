@@ -18104,8 +18104,11 @@ body.modal-open .mm-slideout {
 }
 
 .product .img-wrapper {
+  overflow: hidden;
+  height: 50%;
   position: relative;
-
+  background-size: cover;
+  background-position: center center;
 }
 
 .product .img-wrapper img {
