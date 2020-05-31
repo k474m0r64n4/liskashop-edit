@@ -1,23 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home</title>
-    <meta charset="utf-8" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <% include partials/head.ejs %>
 </head>
 <body class="animsition">
 <div class="shop-layout-3" id="page">
     <% include partials/header.ejs %>
-    <section class="sub-header shop-layout-1">
-        <img class="rellax bg-overlay" src="/images/slike/shoppozadina.jpg" alt="">
-        <div class="overlay-call-to-action"></div>
-        <h3 class="heading-style-3">Proizvodi</h3>
-    </section>
+    <% include partials/subheader.ejs %>
     <section class="boxed-sm">
         <div class="container">
             <div class="row">
@@ -29,22 +18,22 @@
                                 <h4 class="title-widget text-center">Kategorije</h4>
                                 <ul>
                                     <li>
-                                        <a href="/items/category/voce">Voće</a>
+                                        <a href="/items?category=voce">Voće</a>
                                     </li>
                                     <li>
-                                        <a href="/items/category/povrce">Povrće</a>
+                                        <a href="/items?category=povrce">Povrće</a>
                                     </li>
                                     <li>
-                                        <a href="/items/category/domaciproizvodi">Domaći proizvodi</a>
+                                        <a href="/items?category=domaciproizvodi">Domaći proizvodi</a>
                                     </li>
                                     <li>
-                                        <a href="/items/category/mlekaijaja">Mleka i Jaja</a>
+                                        <a href="/items?category=mlekaijaja">Mleka i Jaja</a>
                                     </li>
                                     <li>
-                                        <a href="/items/category/vinairakije">Vina i Rakije</a>
+                                        <a href="/items?category=vinairakije">Vina i Rakije</a>
                                     </li>
                                     <li>
-                                        <a href="/items/category/orasasti">Orasasti plodovi</a>
+                                        <a href="/items?category=orasasti">Orasasti plodovi</a>
                                     </li>
 
                                 </ul>
@@ -96,7 +85,7 @@
                                     <% if (tags) { %>
                                     <% tags.forEach(function (tag) { %>
                                     <li>
-                                        <a href="/items/tag/<%= tag %>"><%= tag %></a>
+                                        <a href="/items?tag=<%= tag %>"><%= tag %></a>
                                     </li>
                                     <% })} %>
                                 </ul>

@@ -21,32 +21,22 @@
                 <div class="col-md-10">
                     <div class="tab-content tab-content-style-1">
                         <div class="active" id="users" >
-                            <div class="group-btn-control-wrapper">
-                                <a href="/admin/create"><button  class="btn btn-brand no-radius">NEW USER</button></a>
-                                <button class="btn btn-wishlist btn-brand-ghost no-radius">
-                                    <i class="fa fa-heart"></i>
-                                </button>
-                            </div>
                             <table class="shop_attributes table table-striped table-bordered">
                                 <tbody>
                                 <tr style='text-align:left; background-color:#CCC'>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th>City</th>
+                                    <th class="hidden-xs">Korisničko ime</th>
+                                    <th>Ime i prezime</th>
+                                    <th class="hidden-xs">Email</th>
                                     <th>Role</th>
-                                    <th>Action</th>
+                                    <th>Detalji</th>
                                 </tr>
 
                                 <% if (data) { %>
                                 <% data.forEach(function(user){ %>
                                 <tr>
+                                    <td class="hidden-xs"><%= user.username %></td>
                                     <td><%= user.firstname %> <%= user.lastname %></td>
-                                    <td><%= user.email %></td>
-                                    <td><%= user.phone %></td>
-                                    <td><%= user.address %></td>
-                                    <td><%= user.city %></td>
+                                    <td class="hidden-xs"><%= user.email %></td>
                                     <td><%= user.role %> </td>
                                     <td>
                                         <div style="float:left">

@@ -1,10 +1,13 @@
 var ObjectId = require('mongodb').ObjectId;
+var userService = require('../services/userService');
+var orderService = require('../services/orderService');
 
 var User = require('../db/User');
 
-// Display list of all Users.
+// Display list of all Users GET
 exports.user_list = function(req, res) {
-    User.find( { } ,function(err, result) {
+    var find = {};
+    userService.user_get(find, function (err, result) {
         if (err) {
             console.log(err);
         } else {
@@ -14,14 +17,14 @@ exports.user_list = function(req, res) {
                 user: req.user
             })
         }
-    }).sort({"_id": -1})
+    });
 };
 
-// Display detail page for a specific User in cms.
+// Display detail page for a specific User GET
 exports.user_detail_admin = function(req, res) {
     var o_id = new ObjectId(req.params.id);
-
-    User.find({ "_id": o_id }, function(err, result) {
+    var find = { _id: o_id };
+    userService.user_get(find, function (err, result) {
         if (err) {
             res.redirect('backend/userlist')
         } else {
@@ -31,52 +34,84 @@ exports.user_detail_admin = function(req, res) {
                 user: req.user
             })
         }
-    })
+    });
 };
 
-
-// Display detail page for a specific Author.
+// Display profile page for User GET
 exports.user_detail = function(req, res) {
-    var user = req.user.username;
-    User.find({"username": user}, function(err, result) {
+    var find = { username: req.user.username};
+    userService.user_get(find, function (err, result) {
         if (err) {
             console.log(err);
         } else  {
-                req.db.collection('orders').find({username: user, $or: [ { status: "sent" }, { status: "confirm" }, { status: "reviewed" } ]  }).toArray(function(err, orders) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        res.render('profile', {
-                            title: 'items List',
-                            user: req.user,
-                            data: result,
-                            orders: orders
-                        })
-                    }
-                });
-            }
-    })
+            orderService.order_get({ "user.username" : req.user.username },function(err, orders) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.render('profile', {
+                        title: 'Profil',
+                        user: req.user,
+                        data: result,
+                        orders: orders
+                    })
+                }
+            });
+        }
+    });
+
 };
 
-
-
-
-
-// Handle Author delete on POST.
+// User delete on POST.
 exports.user_delete_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Author delete POST');
+    var o_id = new ObjectId(req.params.id);
+    var find = { _id: o_id };
+    userService.user_delete_post(find, function (err, result) {
+       res.redirect('/admin/userlist');
+    });
 };
 
-// Display Author update form on GET.
+// User create on POST
+exports.user_create_post = function(req, res) {
+    var today = new Date();
+    var password = new User();
+    password = password.hashPassword(req.body.password);
+    var user = {
+        username: req.body.username,
+        password: password,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        phone: req.body.phone,
+        address: req.body.address,
+        city : req.body.city,
+        role : 'customer',
+        createdOn : today
+    };
+    var find = { "username": user.username };
+    userService.user_get(find, function (err, result) {
+        if (err) {
+            res.status(500).send('error occured')
+        } else {
+            if (result === []) {
+                res.status(500).send('User already exists')
+            } else {
+                userService.user_post(user, function (err, ress) {
+                    res.redirect('/login')
+                })
+            }
+        }
+    });
+};
+
+// Display User update form on GET
 exports.user_update_get = function(req, res) {
-    var o_id = new ObjectId(req.params.id);
-    var user = req.user;
-    User.find({"username": user.username}, function(err, result) {
+    var find = { username : req.user.username};
+    userService.user_get(find, function (err, result) {
         if (err) {
             console.log(err);
         } else {
             res.render('profileedit', {
-                title: 'items List',
+                title: 'Profil',
                 user: req.user,
                 data: result
             })
@@ -84,11 +119,10 @@ exports.user_update_get = function(req, res) {
     });
 };
 
-// Handle Author update on POST.
+// User update on POST.
 exports.user_update_post = function(req, res) {
-    var user = req.user;
     var img = { name: req.body.image} ;
-
+    var find = { username : req.user.username};
 
      if(req.files !== null){
          img = req.files.img;
@@ -97,7 +131,6 @@ exports.user_update_post = function(req, res) {
                  return res.status(500).send(err);
          });
      }
-
 
     var data = {
         firstname: req.body.firstname,
@@ -110,10 +143,10 @@ exports.user_update_post = function(req, res) {
         image: img.name
     };
 
+     userService.user_update_post(find, data, function (err, result) {
+        res.redirect('/profile');
+     });
 
-
-    req.db.collection('users').update({"username": user.username}, { $set: data  });
-    res.redirect('/profile');
 };
 
 

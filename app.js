@@ -11,24 +11,16 @@ var expressMongoDb = require('express-mongo-db');
 var config = require('./config');
 var fileUpload = require('express-fileupload');
 
-
 require('./passport')(passport);
 
 mongoose.connect(config.database.url);
 
-
-// Rute za front
+// Routes
 var index = require('./routes/index');
-
-// Rute za back
 var admin = require('./routes/backend/admin');
-
-
 var auth = require('./routes/auth')(passport);
 
 var app = express();
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -56,9 +48,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', index);
-
 app.use('/admin', admin);
-
 app.use('/auth', auth);
 
 console.log("Liskaa!");

@@ -22,49 +22,49 @@
                 <div class="col-md-10">
                     <div class="tab-content tab-content-style-1">
                         <div class="active" id="users" >
-
-
                             <table class="shop_attributes table table-striped table-bordered">
                                 <tbody>
                                 <tr style='text-align:left; background-color:#CCC'>
-                                    <th>User</th>
-                                    <th>Items</th>
-                                    <th>Total price</th>
+                                    <th><p>ID: <%= data[0]._id %></p><p>Username: <%= data[0].user.username %></p> </th>
+                                    <th>Proizvodi</th>
+                                    <th>Ukupna cena</th>
                                     <th>Status</th>
-
-
-                                    <th>Action</th>
                                 </tr>
 
                                 <% if(data){ %>
                                 <% data.forEach(function (o) { %>
                                 <tr>
                                     <td>
-                                        <% if(data2){ %>
-                                        <% data2.forEach(function (u) { %>
-                                        <p><%= u.firstname %> <%= u.lastname %></p>
-                                        <p><%= u.address %></p>
-                                        <p><%= u.city %></p>
-                                        <p><%= u.email %></p>
-                                        <p><%= u.phone %></p>
+                                        <p><%= o.user.firstname %> <%= o.user.lastname %></p>
+                                        <p><%= o.user.address %></p>
+                                        <p><%= o.user.city %></p>
+                                        <p><%= o.user.email %></p>
+                                        <p><%= o.user.phone %></p>
 
-                                        <% })} %>
                                     </td>
                                     <td>
                                         <% o.items.forEach(function (v) { %>
-                                        <p> - <%= v.itemname %>  x <%= v.qty %></p>
+                                        <p><%= v.name %> // <%= v.price %> RSD x <%= v.qty %></p>
                                         <% }) %>
                                     </td>
                                     <td>
                                         <p><%= o.orderprice %> RSD</p>
                                     </td>
-                                    <td><%= o.status %></td>
                                     <td>
-                                        <div style="float:left">
+                                        <form action="/admin/orders/update/<%= o._id %>" method="post">
+                                            <div class="col-md-4">
+                                                <select  class="form-control" name="status" id="status">
+                                                    <option value="<%= o.status %>"><%= o.status %></option>
+                                                    <option value="confirm">Confirm</option>
+                                                    <option value="sent">Sent</option>
+                                                    <option value="cancelled">Cancelled</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button  type="submit" name="Submit">Promeni</button>
+                                            </div>
+                                        </form>
 
-                                            <a href="/orders/<%= o._id %>">Details</a>
-
-                                        </div>
                                     </td>
                                 </tr>
                                 <% })} %>

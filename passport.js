@@ -1,14 +1,14 @@
 var localStrategy = require('passport-local').Strategy;
-var User = require('./db/User')
+var User = require('./db/User');
 
 
 module.exports = function (passport) {
     passport.serializeUser(function (user, done) {
         done(null, user)
-    })
+    });
     passport.deserializeUser(function (user, done) {
         done(null, user)
-    })
+    });
 
     passport.use(new localStrategy(function (username, password, done) {
         User.findOne({
@@ -18,9 +18,8 @@ module.exports = function (passport) {
                 done(err)
             } else {
                 if (doc) {
-                    var valid = doc.comparePassword(password, doc.password)
+                    var valid = doc.comparePassword(password, doc.password);
                     if (valid) {
-                        // do not add password hash to session
                         done(null, {
                             username: doc.username,
                             id: doc._id,
@@ -35,4 +34,4 @@ module.exports = function (passport) {
             }
         })
     }))
-}
+};

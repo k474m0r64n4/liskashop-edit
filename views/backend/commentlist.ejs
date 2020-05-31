@@ -25,23 +25,20 @@
                             <table class="shop_attributes table table-striped table-bordered">
                                 <tbody>
                                 <tr style='text-align:left; background-color:#CCC'>
-                                    <th>ID</th>
-                                    <th>Blog ID</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Text</th>
+                                    <th class="hidden-xs">Blog ID</th>
+                                    <th>Ime</th>
+                                    <th class="hidden-xs">Email</th>
+                                    <th>Tekst</th>
                                     <th>Status</th>
-
                                     <th>Action</th>
                                 </tr>
 
                                 <% if(data){ %>
                                 <% data.forEach(function (com) { %>
                                 <tr>
-                                    <td><%= com._id %></td>
-                                    <td><%= com.blogId %></td>
+                                    <td class="hidden-xs"><%= com.blogId %></td>
                                     <td><%= com.username %></td>
-                                    <td><%= com.email %></td>
+                                    <td class="hidden-xs"><%= com.email %></td>
                                     <td><%= com.comText %></td>
                                     <td>
                                         <form action="/admin/comments/update/<%= com._id %>" method="post">
@@ -59,7 +56,14 @@
                                         </form>
 
                                     </td>
-
+                                    <td>
+                                        <div style="float:left">
+                                            <form method="post" action="/admin/comments/delete/<%= com._id %>" style="float:right">
+                                                <input class="btn btn-danger" type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" />
+                                                <input type="hidden" name="_method" value="DELETE" />
+                                            </form>
+                                        </div>
+                                    </td>
 
                                 </tr>
                                 <% })} %>

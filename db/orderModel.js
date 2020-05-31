@@ -3,8 +3,8 @@ var mongoose = require('mongoose');
 var schema = mongoose.Schema;
 
 var orderSchema = new schema({
-    username:{
-        type:String
+    user:{
+        type: Object
     },
     items: {
         type: Array

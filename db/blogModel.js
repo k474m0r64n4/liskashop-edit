@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var schema = mongoose.Schema;
-// Srediti sve
+
 var blogSchema = new schema({
     title:{
         type:String

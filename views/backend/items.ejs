@@ -22,7 +22,7 @@
                         <div class="tab-content tab-content-style-1">
                             <div class="tab-pane fade in active" id="items" role="tabpanel">
                                 <div class="group-btn-control-wrapper">
-                                    <a href="/admin/create"><button  class="btn btn-brand no-radius">NEW ITEM</button></a>
+                                    <a href="/admin/create"><button  class="btn btn-brand no-radius">Nov Proizvod</button></a>
                                     <button class="btn btn-wishlist btn-brand-ghost no-radius">
                                         <i class="fa fa-heart"></i>
                                     </button>
@@ -30,72 +30,32 @@
                                 <table class="shop_attributes table table-striped table-bordered">
                                     <tbody>
                                     <tr style='text-align:left; background-color:#CCC'>
-                                        <th>Name</th>
-                                        <th>price</th>
-                                        <th>description</th>
-                                        <th>image</th>
-                                        <th>Venor</th>
-                                        <th>Category</th>
-                                        <th>Action</th>
+                                        <th>Naziv</th>
+                                        <th class="hidden-xs">Cena</th>
+                                        <th class="hidden-xs">Opis</th>
+                                        <th class="hidden-xs">Prodavac</th>
+                                        <th class="hidden-xs">Kategorija</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
                                     </tr>
 
                                     <% if (data) { %>
                                     <% data.forEach(function(item){ %>
                                     <tr>
                                         <td><%= item.name %></td>
-                                        <td><%= item.price %></td>
-                                        <td><%= item.description %></td>
-                                        <td><%= item.image %></td>
-                                        <td><%= item.vendor %></td>
-                                        <td><%= item.category %></td>
+                                        <td class="hidden-xs"><%= item.price %></td>
+                                        <td class="hidden-xs"><%= item.description %></td>
+                                        <td class="hidden-xs"><%= item.vendor %></td>
+                                        <td class="hidden-xs"><%= item.category %></td>
                                         <td>
                                             <div style="float:left">
-                                                <a href='/admin/update/<%= item._id %>'><button>Edit</button></a> &nbsp;
-                                                <form method="post" action="/admin/delete/<%= item._id %>" style="float:right">
-                                                    <input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" />
-                                                    <input type="hidden" name="_method" value="DELETE" />
-                                                </form>
+                                                <a class="btn btn-info" href='/admin/update/<%= item._id %>'>Edit</a> &nbsp;
                                             </div>
                                         </td>
-                                    </tr>
-                                    <% }) %>
-                                    <% } %>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="tab-pane fade" id="users" role="tabpanel">
-                                <div class="group-btn-control-wrapper">
-                                    <a href="/admin/create"><button  class="btn btn-brand no-radius">NEW USER</button></a>
-                                    <button class="btn btn-wishlist btn-brand-ghost no-radius">
-                                        <i class="fa fa-heart"></i>
-                                    </button>
-                                </div>
-                                <table class="shop_attributes table table-striped table-bordered">
-                                    <tbody>
-                                    <tr style='text-align:left; background-color:#CCC'>
-                                        <th>Name</th>
-                                        <th>price</th>
-                                        <th>description</th>
-                                        <th>image</th>
-                                        <th>gallery</th>
-                                        <th>Category</th>
-                                        <th>Action</th>
-                                    </tr>
-
-                                    <% if (data) { %>
-                                    <% data.forEach(function(item){ %>
-                                    <tr>
-                                        <td><%= item.name %></td>
-                                        <td><%= item.price %></td>
-                                        <td><%= item.description %></td>
-                                        <td><%= item.image %></td>
-                                        <td><%= item.gallery %></td>
-                                        <td><%= item.category %></td>
                                         <td>
                                             <div style="float:left">
-                                                <a href='/admin/update/<%= item._id %>'>Edit</a> &nbsp;
                                                 <form method="post" action="/admin/delete/<%= item._id %>" style="float:right">
-                                                    <input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" />
+                                                    <input class="btn btn-danger" type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" />
                                                     <input type="hidden" name="_method" value="DELETE" />
                                                 </form>
                                             </div>

@@ -1,246 +1,122 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home</title>
-    <meta charset="utf-8" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <% include partials/head.ejs %>
 </head>
 <body class="animsition">
 <div class="checkout" id="page">
 
     <% include partials/header.ejs %>
-    <section class="sub-header shop-detail-1">
-        <img class="rellax bg-overlay" src="images/slike/shoppozadina.jpg" alt="">
-        <div class="overlay-call-to-action"></div>
-        <h3 class="heading-style-3">Plaćanje</h3>
-    </section>
+    <% include partials/subheader.ejs %>
+
     <section class="boxed-sm">
         <div class="container">
             <div class="woocommerce">
+                <form class="checkout" action="/conform" method="post">
 
                 <div class="row">
-                    <form class="checkout" action="/conform">
 
                         <div class="woocommerce-checkout-review-order">
-                            <% if(data2){%>
-                            <% data2.forEach(function (p) { %>
-                            <div style="padding-bottom: 30px;" >
-                                <h4>Vaša porudžbina:</h4>
-                                <p ><%= p.firstname %> <%= p.lastname %></p>
-                                <p><%= p.address %></p>
-                                <p><%= p.city %></p>
-                                <p><%= p.phone %></p>
-                                <p ><%= p.email %></p>
+                            <div class="col-lg-6 col-md-6 col-xs-12">
+                                    <h4>Detalji za isporuku</h4>
+                                <% if (userdata){ %>
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <div class="form-group Orchid-form no-radius">
+                                                <label>Ime *</label>
+                                                <input class="form-control" type="text" name="firstname" value="<%= userdata[0].firstname%>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <div class="form-group Orchid-form no-radius">
+                                                <label>Prezime *</label>
+                                                <input class="form-control" type="text" name="lastname" value="<%= userdata[0].lastname%>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group Orchid-form no-radius">
+                                                <label>E-mail adresa *</label>
+                                                <input class="form-control" type="email" name="email" value="<%= userdata[0].email%>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group Orchid-form no-radius">
+                                                <label>Broj telefona *</label>
+                                                <input class="form-control" type="text" name="phone" value="<%= userdata[0].phone%>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <div class="form-group Orchid-form no-radius">
+                                                <label>Adresa *</label>
+                                                <input class="form-control" type="text" name="address" value="<%= userdata[0].address%>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group Orchid-form no-radius">
+                                                <label>Grad/Mesto *</label>
+                                                <input class="form-control" type="text"  name="city" value="<%= userdata[0].city%>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% } %>
                             </div>
-                            <% }) } %>
+                            <div class="col-lg-6 col-md-6 col-xs-12">
+                                <table class="woocommerce-checkout-review-order-table">
+                                    <thead>
+                                    <tr>
+                                        <th class="product-name">Proizvod</th>
+                                        <th class="product-total">Ukupno</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <% if(data) { %>
+                                    <% data.forEach(function (itm) { %>
+                                    <tr class="cart_item">
+                                        <td class="product-name"><%= itm.name %>
+                                            <span class="product-quantity">× <%= itm.qty %></span>
+                                        </td>
+                                        <td class="product-total">
+                                            <span class="woocommerce-Price-amount amount"><%= itm.price * itm.qty %> RSD</span>
+                                        </td>
+                                    </tr>
+                                    <% })} %>
+                                    </tbody>
+                                    <tfoot>
 
-                            <table class="woocommerce-checkout-review-order-table">
-                                <thead>
-                                <tr>
-                                    <th class="product-name">Proizvod</th>
-                                    <th class="product-total">Ukupno</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <% if(data) { %>
-                                <% if (itm) {%>
-                                <% itm.forEach(function (it) {  %>
-                                <tr class="cart_item">
-                                    <td class="product-name"><%= it.itemname%>
-                                        <span class="product-quantity">× <%= it.qty %></span>
-                                    </td>
-                                    <td class="product-total">
-                          <span class="woocommerce-Price-amount amount"><%= it.itemprice * it.qty %> RSD</span>
-                                    </td>
-                                </tr>
-                                <% })} }%>
-                                </tbody>
-                                <tfoot>
+                                    <tr class="order-total">
+                                        <th>Total</th>
+                                        <td>
+                                            <strong>
+                                                <span class="woocommerce-Price-amount amount"><%= total %> RSD</span>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
 
-                                <tr class="order-total">
-                                    <th>Total</th>
-                                    <td>
-                                        <strong>
-                                            <span class="woocommerce-Price-amount amount"><%= total %> RSD</span>
-                                        </strong>
-                                    </td>
-                                </tr>
-                                </tfoot>
-                            </table>
 
-                            <input class="place_order btn btn-brand pill" name="" value="PORUČI" data-value="Place order" type="submit">
 
                         </div>
 
-                    </form>
                 </div>
-            </div>
+                    <input class="place_order btn btn-brand pill" name="" value="PORUČI" data-value="Place order" type="submit">
+                    <a href="/login" class="btn btn-link">Login</a>
+
+                </form>
+
+        </div>
         </div>
     </section>
 </div>
 <% include partials/footer.ejs %>
-<div class="modal fade" id="quick-view-product" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg modal-quickview woocommerce" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="woocommerce-product-gallery">
-                            <div class="main-carousel-product-quick-view">
-                                <div class="item">
-                                    <img class="img-responsive" src="images/product/01.jpg" alt="product thumbnail" />
-                                </div>
-                                <div class="item">
-                                    <img class="img-responsive" src="images/product/02.jpg" alt="product thumbnail" />
-                                </div>
-                                <div class="item">
-                                    <img class="img-responsive" src="images/product/03.jpg" alt="product thumbnail" />
-                                </div>
-                                <div class="item">
-                                    <img class="img-responsive" src="images/product/04.jpg" alt="product thumbnail" />
-                                </div>
-                                <div class="item">
-                                    <img class="img-responsive" src="images/product/05.jpg" alt="product thumbnail" />
-                                </div>
-                            </div>
-                            <div class="thumbnail-carousel-product-quickview">
-                                <div class="item">
-                                    <img class="img-responsive" src="images/product/01.jpg" alt="product thumbnail" />
-                                </div>
-                                <div class="item">
-                                    <img class="img-responsive" src="images/product/02.jpg" alt="product thumbnail" />
-                                </div>
-                                <div class="item">
-                                    <img class="img-responsive" src="images/product/03.jpg" alt="product thumbnail" />
-                                </div>
-                                <div class="item">
-                                    <img class="img-responsive" src="images/product/04.jpg" alt="product thumbnail" />
-                                </div>
-                                <div class="item">
-                                    <img class="img-responsive" src="images/product/05.jpg" alt="product thumbnail" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="summary">
-                            <div class="desc">
-                                <div class="header-desc">
-                                    <h2 class="product-title">Sald</h2>
-                                    <p class="price">$2.00</p>
-                                </div>
-                                <div class="body-desc">
-                                    <div class="woocommerce-product-details-short-description">
-                                        <p>Duis vestibulum ante velit. Pellentesque orci felis, pharetra ut pharetra ut, interdum at mauris. Aenean efficitur aliquet libero sit amet scelerisque. Suspendisse efficitur mollis eleifend. Aliquam tortor nibh, venenatis quis
-                                            sem dapibus, varius egestas lorem a sollicitudin. </p>
-                                    </div>
-                                </div>
-                                <div class="footer-desc">
-                                    <form class="cart">
-                                        <div class="quantity buttons-added">
-                                            <input class="minus" value="-" type="button" />
-                                            <input class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" type="number" />
-                                            <input class="plus" value="+" type="button" />
-                                        </div>
-                                        <div class="group-btn-control-wrapper">
-                                            <button class="btn btn-brand no-radius">ADD TO CART</button>
-                                            <button class="btn btn-wishlist btn-brand-ghost no-radius">
-                                                <i class="fa fa-heart"></i>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="product-meta">
-                                <p class="posted-in">Categories:
-                                    <a href="#" rel="tag">Food</a>
-                                </p>
-                                <p class="tagged-as">Tags:
-                                    <a href="#" rel="tag">Natural</a>,
-                                    <a href="#" rel="tag">Orchid</a>,
-                                    <a href="#" rel="tag">Health</a>,
-                                    <a href="#" rel="tag">Green</a>,
-                                    <a href="#" rel="tag">Vegetable</a>
-                                </p>
-                                <p class="id">ID:
-                                    <a href="#">A203</a>
-                                </p>
-                            </div>
-                            <div class="widget-social align-left">
-                                <ul>
-                                    <li>
-                                        <a class="facebook" data-toggle="tooltip" title="Facebook" href="http://www.facebook.com/Upperthemes">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="pinterest" data-toggle="tooltip" title="Pinterest" href="http://www.pinterest.com/Upperthemes">
-                                            <i class="fa fa-pinterest"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="twitter" data-toggle="tooltip" title="Twitter" href="http://www.twitter.com/Upperthemes">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="google-plus" data-toggle="tooltip" title="Google Plus" href="https://plus.google.com/Upperthemes">
-                                            <i class="fa fa-google-plus"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="instagram" data-toggle="tooltip" title="Instagram" href="https://instagram.com/Upperthemes">
-                                            <i class="fa fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="/js/library/jquery.min.js"></script>
-<script src="/js/library/bootstrap.min.js"></script>
-<script src="/js/function-check-viewport.js"></script>
-<script src="/js/library/slick.min.js"></script>
-<script src="/js/library/select2.full.min.js"></script>
-<script src="/js/library/imagesloaded.pkgd.min.js"></script>
-<script src="/js/library/jquery.mmenu.all.min.js"></script>
-<script src="/js/library/rellax.min.js"></script>
-<script src="/js/library/isotope.pkgd.min.js"></script>
-<script src="/js/library/bootstrap-notify.min.js"></script>
-<script src="/js/library/bootstrap-slider.js"></script>
-<script src="/js/library/in-view.min.js"></script>
-<script src="/js/library/countUp.js"></script>
-<script src="/js/library/animsition.min.js"></script>
-<script src="/js/global.js"></script>
-<script src="/js/config-mm-menu.js"></script>
-<script src="/js/config-carousel.js">
-
-
-</script>
-<script src="/js/config-carousel-thumbnail.js">
-
-
-</script>
-<script src="/js/config-carousel-product-quickview.js"></script>
-<!-- Demo Only-->
-<script src="/js/demo-add-to-cart.js">
-
-
-</script>
+<% include partials/footerscripts.ejs %>
 </body>
 </html>

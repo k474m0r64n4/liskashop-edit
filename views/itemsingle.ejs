@@ -1,24 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home</title>
-    <meta charset="utf-8" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <% include partials/head.ejs %>
 </head>
 <body class="animsition">
 <div class="shop-detail-3 woocommerce" id="page">
 
     <% include partials/header.ejs %>
-    <section class="sub-header shop-layout-1">
-        <img class="rellax bg-overlay" src="/images/slike/shoppozadina.jpg" alt="">
-        <div class="overlay-call-to-action"></div>
-        <h3 class="heading-style-3">Proizvod</h3>
-    </section>
+    <% include partials/subheader.ejs %>
+
     <section class="boxed-sm">
         <div class="container">
 
@@ -88,12 +78,12 @@
                             </div>
                             <div class="product-meta">
                                 <p class="posted-in">Kategorija:
-                                    <a href="/items/category/<%= item.category %>" rel="tag"><%= item.category %></a>
+                                    <a href="/items?category=<%= item.category %>" rel="tag"><%= item.category %></a>
                                 </p>
                                 <p class="tagged-as">Tagovi:
                                     <% if(item.tags) { %>
                                     <% item.tags.forEach(function (t) {  %>
-                                    <a href="/items/tag/<%= t %>" rel="tag"><%= t %></a>,
+                                    <a href="/items?tag=<%= t %>" rel="tag"><%= t %></a>,
                                     <% })}%>
 
                                 </p>
@@ -102,7 +92,7 @@
                             <div class="widget-social align-left">
                                 <ul>
                                     <li>
-                                        <a  href="/vendor/<%= item.vendor %>">
+                                        <a  href="#">
                                            <%= item.vendor %>
                                         </a>
                                     </li>
@@ -193,11 +183,11 @@
                                     <li>
                                         <div class="the-comment">
                                             <div class="avatar">
-                                                <img class="avatar" alt="avatar" src="/images/comment/01.png">
+                                                <img class="avatar" alt="avatar" src="/images/comment/<%= r.username.slice(0,1) %>.png">
                                             </div>
                                             <div class="comment-box">
                                                 <div class="comment-author meta">
-                                                    <p class="author"><%= r.username %> <%= r.image %></p>
+                                                    <p class="author"><%= r.username %></p>
                                                     <p class="time"><%= r.rev %></p>
                                                 </div>
                                                 <div class="comment-text">
@@ -254,36 +244,6 @@
     </section>
 </div>
 <% include partials/footer.ejs %>
-
-<script src="/js/library/jquery.min.js"></script>
-<script src="/js/library/bootstrap.min.js"></script>
-<script src="/js/function-check-viewport.js"></script>
-<script src="/js/library/slick.min.js"></script>
-<script src="/js/library/select2.full.min.js"></script>
-<script src="/js/library/imagesloaded.pkgd.min.js"></script>
-<script src="/js/library/jquery.mmenu.all.min.js"></script>
-<script src="/js/library/rellax.min.js"></script>
-<script src="/js/library/isotope.pkgd.min.js"></script>
-<script src="/js/library/bootstrap-notify.min.js"></script>
-<script src="/js/library/bootstrap-slider.js"></script>
-<script src="/js/library/in-view.min.js"></script>
-<script src="/js/library/countUp.js"></script>
-<script src="/js/library/animsition.min.js"></script>
-<script src="/js/global.js"></script>
-<script src="/js/config-mm-menu.js"></script>
-<script src="/js/config-carousel.js">
-
-
-</script>
-<script src="/js/config-carousel-thumbnail.js">
-
-
-</script>
-<script src="/js/config-carousel-product-quickview.js"></script>
-<!-- Demo Only-->
-<script src="/js/demo-add-to-cart.js">
-
-
-</script>
+<% include partials/footerscripts.ejs %>
 </body>
 </html>

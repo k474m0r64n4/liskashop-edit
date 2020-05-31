@@ -27,8 +27,8 @@
                                 <% if(data){ %>
                                 <% data.forEach(function (o) { %>
                                 <tr style='text-align:left; background-color:#CCC'>
-                                    <th>Username: <%= o.username %> ID: <%= o._id %> </th>
-                                    <th>Action</th>
+                                    <th><p> ID: <%= o._id %></p><p>Username: <%= o.username %></p> </th>
+                                    <th>Delete</th>
                                 </tr>
 
 
@@ -46,7 +46,7 @@
 
                                     <td>
                                         <div style="float:left">
-                                            <form method="post" action="/orders/delete/1111" style="float:right">
+                                            <form method="post" action="/admin/user/delete/<%= o._id %>" style="float:right">
                                                 <input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" />
                                                 <input type="hidden" name="_method" value="DELETE" />
                                             </form>

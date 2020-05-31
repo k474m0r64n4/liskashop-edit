@@ -20,7 +20,7 @@
             <a href="/contact">Kontakt</a>
         </li>
         <li>
-            <a href="/cart">Korpa</a>
+            <a href="/cart">Korpa (<%= itmarr.length %>)</a>
         </li>
         <li>
             <a href="/logout">logout</a>
@@ -85,12 +85,8 @@
                         <p class="counter"><%= user.username %></p>
                     </a>
                     <ul>
-
                         <li>
-                            <a class="control" href="/profile">Profil</a>
-                        </li>
-                        <li>
-                            <a href="/cart">Korpa </a>
+                            <a href="/cart"><i class="fa fa-shopping-cart"> (<%= itmarr.length %>)</i></a>
                         </li>
                         <li>
                             <a href="/logout">Logout</a>
@@ -110,6 +106,11 @@
                 </a>
             </div>
             <% } else { %>
+            <div class="widget widget-control-header">
+                <a class="control" href="/cart">
+                    <i class="fa fa-shopping-cart">(<%= itmarr.length %>)</i>
+                </a>
+            </div>
             <div class="widget widget-control-header">
                 <a class="control" href="/login">
                     <p class="counter">Login</p>

@@ -14,12 +14,12 @@
 <div class="shop-layout-3" id="page">
     <% include ../partials/header.ejs %>
     <section >
-        <div class="container" style="width: 100%">
+        <div class="container" style="width: 100%" >
             <div class="row">
                 <% include ../partials/adminheader.ejs %>
                 <div class="col-md-8">
-                    <div class="container text-left">
-                        <div class="row form-contact" style="margin-right: 150px">
+                    <div class="container text-left" style="width: 100%">
+                        <div class="row form-contact" >
                             <div class="row main">
                                 <form ref='uploadForm'
                                       id='uploadForm'
@@ -28,37 +28,36 @@
                                       encType="multipart/form-data">
                                     <div class="col-md-6">
                                         <div class="form-group organic-form xs-radius">
-                                            <label>Name: </label>
+                                            <label>Naziv: </label>
                                             <input class="form-control" name="name" id="name" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group organic-form xs-radius">
-                                            <label>Amount: </label>
+                                            <label>Količina: </label>
                                             <input class="form-control" name="amount" id="amount" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group organic-form xs-radius">
-                                            <label>Price: </label>
+                                            <label>Cena: </label>
                                             <input class="form-control" name="price" id="price" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group organic-form xs-radius">
-                                            <label>Description: </label>
+                                            <label>Opis: </label>
                                             <textarea class="form-control"  name="description" id="description"  rows="3"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group organic-form xs-radius">
-                                            <label>Content text: </label>
+                                            <label>Sadržaj: </label>
                                             <textarea class="form-control"  name="content_text" id="content_text"  rows="3"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label>Image: </label>
-
+                                        <label>Slika: </label>
                                         <div class="form-group organic-form xs-radius">
                                             <input type="file" name="img" id="img">
                                         </div>
@@ -66,12 +65,12 @@
                                     <div class="col-md-6">
                                         <label>Gallery: </label>
                                         <div class="form-group organic-form xs-radius">
-                                            <input class="form-control"  name="gallery" id="gallery" type="text" >
+                                            <input disabled class="form-control"  name="gallery" id="gallery" type="text" >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group organic-form xs-radius">
-                                            <label>Category: </label>
+                                            <label>Kategorija: </label>
                                             <select  class="form-control" name="category" id="category">
                                                 <option value="voce">Voće</option>
                                                 <option value="povrce">Povrće</option>
@@ -80,19 +79,17 @@
                                                 <option value="mlekaijaja">Mleka i jaja</option>
                                                 <option value="vinairakije">Vina i Rakije</option>
                                             </select>
-
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-
                                         <div class="form-group organic-form xs-radius">
-                                            <label>Tags: </label>
+                                            <label>Tagovi: </label>
                                             <input class="form-control"  name="tags" id="tags"  type="text" >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group organic-form xs-radius">
-                                            <label>Available: </label>
+                                            <label>Dostupnost: </label>
                                             <select  class="form-control" name="status" id="status">
                                                 <option value="Na stanju">Na stanju</option>
                                                 <option value="Nema na stanju">Nema na stanju</option>
@@ -114,7 +111,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group organic-form xs-radius">
-                                            <button class="btn btn-brand pill" type="submit" name="Submit">ADD ITEM</button>
+                                            <button class="btn btn-brand pill" type="submit" name="Submit">Dodaj</button>
                                         </div>
                                     </div>
                                 </form>
