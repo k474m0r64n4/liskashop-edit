@@ -31,7 +31,7 @@ router.get('/login', indexController.getLogin);
 router.get('/signup', indexController.getSignup);
 router.get('/logout',loggedin, indexController.getLogout);
 
-/* User names and routes of everything listed */
+/* User names and routes of everything listed in this document */
 router.get('/profile/',loggedin, userController.user_detail);
 router.get('/profile/:id',loggedin, userController.user_update_get);
 router.post('/profile/edit',loggedin, userController.user_update_post);
