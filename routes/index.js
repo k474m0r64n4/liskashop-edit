@@ -17,7 +17,7 @@ var loggedin = function (req, res, next) {
   }
 };
 
-/* Index routes  */
+/* Index routes of all the links  */
 router.get('/', indexController.getIndex);
 router.get('/about', indexController.getAbout);
 router.get('/contact', indexController.getContact);
@@ -31,7 +31,7 @@ router.get('/login', indexController.getLogin);
 router.get('/signup', indexController.getSignup);
 router.get('/logout',loggedin, indexController.getLogout);
 
-/* User routes */
+/* User names and routes of everything listed */
 router.get('/profile/',loggedin, userController.user_detail);
 router.get('/profile/:id',loggedin, userController.user_update_get);
 router.post('/profile/edit',loggedin, userController.user_update_post);
